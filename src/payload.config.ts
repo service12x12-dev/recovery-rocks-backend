@@ -8,7 +8,6 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Users } from './collections/Users'
-import { Media } from './collections/Media'
 import { Topics } from '@/collections/Topics'
 import { Quotes } from '@/collections/Quotes'
 import { FallbackPublications } from '@/globals/FallbackPublications'
@@ -25,7 +24,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Topics, Quotes, Cards],
+  collections: [Users, Topics, Quotes, Cards],
   globals: [FallbackPublications],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
