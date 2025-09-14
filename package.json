@@ -20,6 +20,7 @@
   "dependencies": {
     "@faceless-ui/modal": "3.0.0-beta.2",
     "@faceless-ui/scroll-info": "2.0.0",
+    "@innovixx/payload-color-picker-field": "^2.0.2",
     "@payloadcms/db-postgres": "3.54.0",
     "@payloadcms/next": "3.54.0",
     "@payloadcms/payload-cloud": "3.54.0",

@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    topics: Topic;
+    quotes: Quote;
+    cards: Card;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,6 +80,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    topics: TopicsSelect<false> | TopicsSelect<true>;
+    quotes: QuotesSelect<false> | QuotesSelect<true>;
+    cards: CardsSelect<false> | CardsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -84,8 +90,12 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    fallbackPublications: FallbackPublication;
+  };
+  globalsSelect: {
+    fallbackPublications: FallbackPublicationsSelect<false> | FallbackPublicationsSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -158,6 +168,55 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "topics".
+ */
+export interface Topic {
+  id: number;
+  title: string;
+  body: string;
+  annualDate?: {
+    day?: number | null;
+    month?: number | null;
+  };
+  daysReached?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quotes".
+ */
+export interface Quote {
+  id: number;
+  body: string;
+  source: string;
+  annualDate?: {
+    day?: number | null;
+    month?: number | null;
+  };
+  daysReached?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cards".
+ */
+export interface Card {
+  id: number;
+  title: string;
+  body: string;
+  backgroundColor: string;
+  textColor: string;
+  /**
+   * Если рамка не нужна, скопируйте сюда цвет фона
+   */
+  borderColor: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -170,6 +229,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'topics';
+        value: number | Topic;
+      } | null)
+    | ({
+        relationTo: 'quotes';
+        value: number | Quote;
+      } | null)
+    | ({
+        relationTo: 'cards';
+        value: number | Card;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -255,6 +326,53 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "topics_select".
+ */
+export interface TopicsSelect<T extends boolean = true> {
+  title?: T;
+  body?: T;
+  annualDate?:
+    | T
+    | {
+        day?: T;
+        month?: T;
+      };
+  daysReached?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quotes_select".
+ */
+export interface QuotesSelect<T extends boolean = true> {
+  body?: T;
+  source?: T;
+  annualDate?:
+    | T
+    | {
+        day?: T;
+        month?: T;
+      };
+  daysReached?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cards_select".
+ */
+export interface CardsSelect<T extends boolean = true> {
+  title?: T;
+  body?: T;
+  backgroundColor?: T;
+  textColor?: T;
+  borderColor?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
@@ -284,6 +402,30 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Эти публикации будут показаны пользователю в такой день, когда ни по достигнутым дням, ни по ежегодной дате в базе данных не будет найдено ни одной публикации.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fallbackPublications".
+ */
+export interface FallbackPublication {
+  id: number;
+  topic?: (number | null) | Topic;
+  quote?: (number | null) | Quote;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fallbackPublications_select".
+ */
+export interface FallbackPublicationsSelect<T extends boolean = true> {
+  topic?: T;
+  quote?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

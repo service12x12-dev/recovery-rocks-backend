@@ -9,6 +9,10 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Topics } from '@/collections/Topics'
+import { Quotes } from '@/collections/Quotes'
+import { FallbackPublications } from '@/globals/FallbackPublications'
+import { Cards } from '@/collections/Cards'
 import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
@@ -21,7 +25,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Topics, Quotes, Cards],
+  globals: [FallbackPublications],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -38,4 +43,5 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
+  cors: '*',
 })

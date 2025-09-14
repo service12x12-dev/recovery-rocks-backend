@@ -2398,6 +2398,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@innovixx/payload-color-picker-field@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@innovixx/payload-color-picker-field@npm:2.0.2"
+  dependencies:
+    react-colorful: "npm:^5.6.1"
+  peerDependencies:
+    next: ^15.0.0
+    payload: ^3.2.2
+    react: ^19.0.0
+  checksum: 10c0/9e207d7eaf3a40f074a4b9b05958f01e834507b661fce55445c94fbbed909ac6bb0dd7e2005d0b4c5b1d378c4b210d8f16ff10bc6a1986b0777234bbcbf1cba1
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -9342,6 +9355,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-colorful@npm:^5.6.1":
+  version: 5.6.1
+  resolution: "react-colorful@npm:5.6.1"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10c0/48eb73cf71e10841c2a61b6b06ab81da9fffa9876134c239bfdebcf348ce2a47e56b146338e35dfb03512c85966bfc9a53844fc56bc50154e71f8daee59ff6f0
+  languageName: node
+  linkType: hard
+
 "react-datepicker@npm:7.6.0":
   version: 7.6.0
   resolution: "react-datepicker@npm:7.6.0"
@@ -9494,6 +9517,7 @@ __metadata:
   dependencies:
     "@faceless-ui/modal": "npm:3.0.0-beta.2"
     "@faceless-ui/scroll-info": "npm:2.0.0"
+    "@innovixx/payload-color-picker-field": "npm:^2.0.2"
     "@payloadcms/db-postgres": "npm:3.54.0"
     "@payloadcms/next": "npm:3.54.0"
     "@payloadcms/payload-cloud": "npm:3.54.0"
