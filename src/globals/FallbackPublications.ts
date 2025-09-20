@@ -12,20 +12,20 @@ export const FallbackPublications = {
   },
   fields: [
     {
-      label: 'Запасная тема',
-      name: 'topic',
+      label: 'Запасная цитата',
+      name: 'quote',
       type: 'relationship',
-      relationTo: 'topics',
+      relationTo: 'quotes',
       hasMany: false,
       admin: {
         appearance: 'drawer',
       },
     },
     {
-      label: 'Запасная цитата',
-      name: 'quote',
+      label: 'Запасная тема',
+      name: 'topic',
       type: 'relationship',
-      relationTo: 'quotes',
+      relationTo: 'topics',
       hasMany: false,
       admin: {
         appearance: 'drawer',

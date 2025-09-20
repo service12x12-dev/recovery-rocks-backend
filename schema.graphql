@@ -411,7 +411,6 @@ type usersMe {
 
 type Topic {
   id: Int!
-  title: String!
   body: String!
   annualDate: DateStruct
   daysReached: Float
@@ -439,7 +438,6 @@ type Topics {
 }
 
 input Topic_where {
-  title: Topic_title_operator
   body: Topic_body_operator
   annualDate__day: Topic_annualDate__day_operator
   annualDate__month: Topic_annualDate__month_operator
@@ -449,16 +447,6 @@ input Topic_where {
   id: Topic_id_operator
   AND: [Topic_where_and]
   OR: [Topic_where_or]
-}
-
-input Topic_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
 }
 
 input Topic_body_operator {
@@ -531,7 +519,6 @@ input Topic_id_operator {
 }
 
 input Topic_where_and {
-  title: Topic_title_operator
   body: Topic_body_operator
   annualDate__day: Topic_annualDate__day_operator
   annualDate__month: Topic_annualDate__month_operator
@@ -544,7 +531,6 @@ input Topic_where_and {
 }
 
 input Topic_where_or {
-  title: Topic_title_operator
   body: Topic_body_operator
   annualDate__day: Topic_annualDate__day_operator
   annualDate__month: Topic_annualDate__month_operator
@@ -569,35 +555,11 @@ type topicsDocAccess {
 }
 
 type TopicsDocAccessFields {
-  title: TopicsDocAccessFields_title
   body: TopicsDocAccessFields_body
   annualDate: TopicsDocAccessFields_annualDate
   daysReached: TopicsDocAccessFields_daysReached
   updatedAt: TopicsDocAccessFields_updatedAt
   createdAt: TopicsDocAccessFields_createdAt
-}
-
-type TopicsDocAccessFields_title {
-  create: TopicsDocAccessFields_title_Create
-  read: TopicsDocAccessFields_title_Read
-  update: TopicsDocAccessFields_title_Update
-  delete: TopicsDocAccessFields_title_Delete
-}
-
-type TopicsDocAccessFields_title_Create {
-  permission: Boolean!
-}
-
-type TopicsDocAccessFields_title_Read {
-  permission: Boolean!
-}
-
-type TopicsDocAccessFields_title_Update {
-  permission: Boolean!
-}
-
-type TopicsDocAccessFields_title_Delete {
-  permission: Boolean!
 }
 
 type TopicsDocAccessFields_body {
@@ -836,9 +798,6 @@ input Quote_source_operator {
   not_equals: String
   like: String
   contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
 }
 
 input Quote_annualDate__day_operator {
@@ -2096,8 +2055,8 @@ type PayloadPreferencesDeleteDocAccess {
 }
 
 type FallbackPublication {
-  topic: Topic
   quote: Quote
+  topic: Topic
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -2109,33 +2068,10 @@ type fallbackPublicationsDocAccess {
 }
 
 type FallbackPublicationsDocAccessFields {
-  topic: FallbackPublicationsDocAccessFields_topic
   quote: FallbackPublicationsDocAccessFields_quote
+  topic: FallbackPublicationsDocAccessFields_topic
   updatedAt: FallbackPublicationsDocAccessFields_updatedAt
   createdAt: FallbackPublicationsDocAccessFields_createdAt
-}
-
-type FallbackPublicationsDocAccessFields_topic {
-  create: FallbackPublicationsDocAccessFields_topic_Create
-  read: FallbackPublicationsDocAccessFields_topic_Read
-  update: FallbackPublicationsDocAccessFields_topic_Update
-  delete: FallbackPublicationsDocAccessFields_topic_Delete
-}
-
-type FallbackPublicationsDocAccessFields_topic_Create {
-  permission: Boolean!
-}
-
-type FallbackPublicationsDocAccessFields_topic_Read {
-  permission: Boolean!
-}
-
-type FallbackPublicationsDocAccessFields_topic_Update {
-  permission: Boolean!
-}
-
-type FallbackPublicationsDocAccessFields_topic_Delete {
-  permission: Boolean!
 }
 
 type FallbackPublicationsDocAccessFields_quote {
@@ -2158,6 +2094,29 @@ type FallbackPublicationsDocAccessFields_quote_Update {
 }
 
 type FallbackPublicationsDocAccessFields_quote_Delete {
+  permission: Boolean!
+}
+
+type FallbackPublicationsDocAccessFields_topic {
+  create: FallbackPublicationsDocAccessFields_topic_Create
+  read: FallbackPublicationsDocAccessFields_topic_Read
+  update: FallbackPublicationsDocAccessFields_topic_Update
+  delete: FallbackPublicationsDocAccessFields_topic_Delete
+}
+
+type FallbackPublicationsDocAccessFields_topic_Create {
+  permission: Boolean!
+}
+
+type FallbackPublicationsDocAccessFields_topic_Read {
+  permission: Boolean!
+}
+
+type FallbackPublicationsDocAccessFields_topic_Update {
+  permission: Boolean!
+}
+
+type FallbackPublicationsDocAccessFields_topic_Delete {
   permission: Boolean!
 }
 
@@ -2446,35 +2405,11 @@ type topicsAccess {
 }
 
 type TopicsFields {
-  title: TopicsFields_title
   body: TopicsFields_body
   annualDate: TopicsFields_annualDate
   daysReached: TopicsFields_daysReached
   updatedAt: TopicsFields_updatedAt
   createdAt: TopicsFields_createdAt
-}
-
-type TopicsFields_title {
-  create: TopicsFields_title_Create
-  read: TopicsFields_title_Read
-  update: TopicsFields_title_Update
-  delete: TopicsFields_title_Delete
-}
-
-type TopicsFields_title_Create {
-  permission: Boolean!
-}
-
-type TopicsFields_title_Read {
-  permission: Boolean!
-}
-
-type TopicsFields_title_Update {
-  permission: Boolean!
-}
-
-type TopicsFields_title_Delete {
-  permission: Boolean!
 }
 
 type TopicsFields_body {
@@ -3399,33 +3334,10 @@ type fallbackPublicationsAccess {
 }
 
 type FallbackPublicationsFields {
-  topic: FallbackPublicationsFields_topic
   quote: FallbackPublicationsFields_quote
+  topic: FallbackPublicationsFields_topic
   updatedAt: FallbackPublicationsFields_updatedAt
   createdAt: FallbackPublicationsFields_createdAt
-}
-
-type FallbackPublicationsFields_topic {
-  create: FallbackPublicationsFields_topic_Create
-  read: FallbackPublicationsFields_topic_Read
-  update: FallbackPublicationsFields_topic_Update
-  delete: FallbackPublicationsFields_topic_Delete
-}
-
-type FallbackPublicationsFields_topic_Create {
-  permission: Boolean!
-}
-
-type FallbackPublicationsFields_topic_Read {
-  permission: Boolean!
-}
-
-type FallbackPublicationsFields_topic_Update {
-  permission: Boolean!
-}
-
-type FallbackPublicationsFields_topic_Delete {
-  permission: Boolean!
 }
 
 type FallbackPublicationsFields_quote {
@@ -3448,6 +3360,29 @@ type FallbackPublicationsFields_quote_Update {
 }
 
 type FallbackPublicationsFields_quote_Delete {
+  permission: Boolean!
+}
+
+type FallbackPublicationsFields_topic {
+  create: FallbackPublicationsFields_topic_Create
+  read: FallbackPublicationsFields_topic_Read
+  update: FallbackPublicationsFields_topic_Update
+  delete: FallbackPublicationsFields_topic_Delete
+}
+
+type FallbackPublicationsFields_topic_Create {
+  permission: Boolean!
+}
+
+type FallbackPublicationsFields_topic_Read {
+  permission: Boolean!
+}
+
+type FallbackPublicationsFields_topic_Update {
+  permission: Boolean!
+}
+
+type FallbackPublicationsFields_topic_Delete {
   permission: Boolean!
 }
 
@@ -3605,7 +3540,6 @@ type usersResetPassword {
 }
 
 input mutationTopicInput {
-  title: String!
   body: String!
   annualDate: mutationTopic_AnnualDateInput
   daysReached: Float
@@ -3619,7 +3553,6 @@ input mutationTopic_AnnualDateInput {
 }
 
 input mutationTopicUpdateInput {
-  title: String
   body: String
   annualDate: mutationTopicUpdate_AnnualDateInput
   daysReached: Float
@@ -3773,8 +3706,8 @@ enum PayloadPreferenceUpdate_UserRelationshipInputRelationTo {
 }
 
 input mutationFallbackPublicationInput {
-  topic: Int
   quote: Int
+  topic: Int
   updatedAt: String
   createdAt: String
 }

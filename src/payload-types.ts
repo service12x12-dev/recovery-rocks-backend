@@ -151,9 +151,11 @@ export interface User {
  */
 export interface Topic {
   id: number;
-  title: string;
   body: string;
   annualDate?: DateStruct;
+  /**
+   * От нуля и выше. В первый день чистоты достигнуто ноль дней.
+   */
   daysReached?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -163,7 +165,13 @@ export interface Topic {
  * via the `definition` "DateStruct".
  */
 export interface DateStruct {
+  /**
+   * День месяца. От единицы и выше.
+   */
   day?: number | null;
+  /**
+   * 0 — Январь, 1 — Февраль, …, 11 — Декабрь
+   */
   month?: number | null;
 }
 /**
@@ -175,6 +183,9 @@ export interface Quote {
   body: string;
   source: string;
   annualDate?: DateStruct;
+  /**
+   * От нуля и выше. В первый день чистоты достигнуто ноль дней.
+   */
   daysReached?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -288,7 +299,6 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "topics_select".
  */
 export interface TopicsSelect<T extends boolean = true> {
-  title?: T;
   body?: T;
   annualDate?: T | DateStructSelect<T>;
   daysReached?: T;
@@ -368,8 +378,8 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface FallbackPublication {
   id: number;
-  topic?: (number | null) | Topic;
   quote?: (number | null) | Quote;
+  topic?: (number | null) | Topic;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -378,8 +388,8 @@ export interface FallbackPublication {
  * via the `definition` "fallbackPublications_select".
  */
 export interface FallbackPublicationsSelect<T extends boolean = true> {
-  topic?: T;
   quote?: T;
+  topic?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

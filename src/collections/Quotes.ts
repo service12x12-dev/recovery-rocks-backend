@@ -23,8 +23,11 @@ export const Quotes = {
     {
       label: 'Источник',
       name: 'source',
-      type: 'text',
+      type: 'textarea',
       required: true,
+      admin: {
+        rows: 2,
+      },
     },
     ...periodicIssueCollection.fields,
   ],

@@ -5,37 +5,56 @@ import afterRead from '@/mixins/PeriodicIssue/afterRead'
 
 const fields = [
   {
-    label: 'Ежегодная дата',
-    name: 'annualDate',
-    type: 'group',
-    interfaceName: 'DateStruct',
+    type: 'row',
     fields: [
       {
-        label: 'День',
-        name: 'day',
-        type: 'number',
-        min: 1,
-        max: 31,
-        validate: validateDay,
-        index: true,
+        label: 'Ежегодная дата',
+        name: 'annualDate',
+        type: 'group',
+        interfaceName: 'DateStruct',
+        fields: [
+          {
+            type: 'row',
+            fields: [
+              {
+                label: 'День',
+                name: 'day',
+                type: 'number',
+                min: 1,
+                max: 31,
+                validate: validateDay,
+                index: true,
+                admin: {
+                  description: 'День месяца. От единицы и выше.',
+                },
+              },
+              {
+                label: 'Месяц',
+                name: 'month',
+                type: 'number',
+                min: 0,
+                max: 11,
+                validate: validateMonth,
+                index: true,
+                admin: {
+                  description: '0 — Январь, 1 — Февраль, …, 11 — Декабрь',
+                },
+              },
+            ],
+          },
+        ],
       },
       {
-        label: 'Месяц',
-        name: 'month',
+        label: 'Достигнуто дней',
+        name: 'daysReached',
         type: 'number',
-        min: 0,
-        max: 11,
-        validate: validateMonth,
         index: true,
+        unique: true,
+        admin: {
+          description: 'От нуля и выше. В первый день чистоты достигнуто ноль дней.',
+        },
       },
     ],
-  },
-  {
-    label: 'Достигнуто дней',
-    name: 'daysReached',
-    type: 'number',
-    index: true,
-    unique: true,
   },
 ] satisfies Field[]
 

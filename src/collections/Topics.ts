@@ -12,12 +12,6 @@ export const Topics = {
   },
   fields: [
     {
-      label: 'Заголовок',
-      name: 'title',
-      type: 'text',
-      required: true,
-    },
-    {
       label: 'Содержание',
       name: 'body',
       type: 'textarea',
