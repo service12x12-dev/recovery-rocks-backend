@@ -153,13 +153,18 @@ export interface Topic {
   id: number;
   title: string;
   body: string;
-  annualDate?: {
-    day?: number | null;
-    month?: number | null;
-  };
+  annualDate?: DateStruct;
   daysReached?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DateStruct".
+ */
+export interface DateStruct {
+  day?: number | null;
+  month?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -169,10 +174,7 @@ export interface Quote {
   id: number;
   body: string;
   source: string;
-  annualDate?: {
-    day?: number | null;
-    month?: number | null;
-  };
+  annualDate?: DateStruct;
   daysReached?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -288,15 +290,18 @@ export interface UsersSelect<T extends boolean = true> {
 export interface TopicsSelect<T extends boolean = true> {
   title?: T;
   body?: T;
-  annualDate?:
-    | T
-    | {
-        day?: T;
-        month?: T;
-      };
+  annualDate?: T | DateStructSelect<T>;
   daysReached?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DateStruct_select".
+ */
+export interface DateStructSelect<T extends boolean = true> {
+  day?: T;
+  month?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -305,12 +310,7 @@ export interface TopicsSelect<T extends boolean = true> {
 export interface QuotesSelect<T extends boolean = true> {
   body?: T;
   source?: T;
-  annualDate?:
-    | T
-    | {
-        day?: T;
-        month?: T;
-      };
+  annualDate?: T | DateStructSelect<T>;
   daysReached?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -8,6 +8,7 @@ const fields = [
     label: 'Ежегодная дата',
     name: 'annualDate',
     type: 'group',
+    interfaceName: 'DateStruct',
     fields: [
       {
         label: 'День',

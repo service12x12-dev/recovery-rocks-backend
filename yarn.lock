@@ -2976,6 +2976,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@payloadcms/graphql@npm:^3.56.0":
+  version: 3.56.0
+  resolution: "@payloadcms/graphql@npm:3.56.0"
+  dependencies:
+    graphql-scalars: "npm:1.22.2"
+    pluralize: "npm:8.0.0"
+    ts-essentials: "npm:10.0.3"
+    tsx: "npm:4.19.2"
+  peerDependencies:
+    graphql: ^16.8.1
+    payload: 3.56.0
+  bin:
+    payload-graphql: bin.js
+  checksum: 10c0/245759ecc5e7e8fef579db7c6b20f1b3870f63179b94df92eecd40c5fcc1d8404d48116fff5fd684020ba072e3ba81f4e11ba4fe7128d49d141e4a7da554a18b
+  languageName: node
+  linkType: hard
+
 "@payloadcms/next@npm:3.54.0":
   version: 3.54.0
   resolution: "@payloadcms/next@npm:3.54.0"
@@ -9519,6 +9536,7 @@ __metadata:
     "@faceless-ui/scroll-info": "npm:2.0.0"
     "@innovixx/payload-color-picker-field": "npm:^2.0.2"
     "@payloadcms/db-postgres": "npm:3.54.0"
+    "@payloadcms/graphql": "npm:^3.56.0"
     "@payloadcms/next": "npm:3.54.0"
     "@payloadcms/payload-cloud": "npm:3.54.0"
     "@payloadcms/richtext-lexical": "npm:3.54.0"
