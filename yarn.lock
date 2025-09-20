@@ -3070,6 +3070,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@payloadcms/translations@npm:^3.56.0":
+  version: 3.56.0
+  resolution: "@payloadcms/translations@npm:3.56.0"
+  dependencies:
+    date-fns: "npm:4.1.0"
+  checksum: 10c0/7087766a9e8c74576fdbacce18974214dc75a7d43189f9bd4d28c53d378967ff81d9e4645f5ba2a4afc6342bb0a0fa9bbc43bb7c9077674c2295dd056f378ceb
+  languageName: node
+  linkType: hard
+
 "@payloadcms/ui@npm:3.54.0":
   version: 3.54.0
   resolution: "@payloadcms/ui@npm:3.54.0"
@@ -9523,6 +9532,7 @@ __metadata:
     "@payloadcms/next": "npm:3.54.0"
     "@payloadcms/payload-cloud": "npm:3.54.0"
     "@payloadcms/richtext-lexical": "npm:3.54.0"
+    "@payloadcms/translations": "npm:^3.56.0"
     "@payloadcms/ui": "npm:3.54.0"
     "@playwright/test": "npm:1.54.1"
     "@testing-library/dom": "npm:^10.0.0"

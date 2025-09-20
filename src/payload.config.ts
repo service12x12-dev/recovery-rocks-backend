@@ -6,6 +6,8 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import { en } from '@payloadcms/translations/languages/en'
+import { ru } from '@payloadcms/translations/languages/ru'
 
 import { Users } from './collections/Users'
 import { Topics } from '@/collections/Topics'
@@ -23,6 +25,7 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    dateFormat: 'do MMMM y, HH:mm',
   },
   collections: [Users, Topics, Quotes, Cards],
   globals: [FallbackPublications],
@@ -43,4 +46,8 @@ export default buildConfig({
     // storage-adapter-placeholder
   ],
   cors: '*',
+  i18n: {
+    fallbackLanguage: 'en',
+    supportedLanguages: { en, ru },
+  },
 })
