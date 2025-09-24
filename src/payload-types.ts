@@ -161,17 +161,13 @@ export interface Topic {
   createdAt: string;
 }
 /**
+ * Каждый год в эту дату участник будет видеть эту публикацию, если для него нет публикации по достигнутым дням
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DateStruct".
  */
 export interface DateStruct {
-  /**
-   * День месяца. От единицы и выше.
-   */
   day?: number | null;
-  /**
-   * 0 — Январь, 1 — Февраль, …, 11 — Декабрь
-   */
   month?: number | null;
 }
 /**

@@ -12,6 +12,9 @@ const fields = [
         name: 'annualDate',
         type: 'group',
         interfaceName: 'DateStruct',
+        admin: {
+          description: 'Каждый год в эту дату участник будет видеть эту публикацию, если для него нет публикации по достигнутым дням',
+        },
         fields: [
           {
             type: 'row',
@@ -24,9 +27,6 @@ const fields = [
                 max: 31,
                 validate: validateDay,
                 index: true,
-                admin: {
-                  description: 'День месяца. От единицы и выше.',
-                },
               },
               {
                 label: 'Месяц',
@@ -37,7 +37,10 @@ const fields = [
                 validate: validateMonth,
                 index: true,
                 admin: {
-                  description: '0 — Январь, 1 — Февраль, …, 11 — Декабрь',
+                  components: {
+                    Cell: '@/components/MonthCell',
+                    Field: '@/components/MonthFieldClient',
+                  },
                 },
               },
             ],
