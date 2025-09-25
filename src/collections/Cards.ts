@@ -10,6 +10,9 @@ export const Cards = {
   access: {
     read: () => true,
   },
+  admin: {
+    useAsTitle: 'title',
+  },
   fields: [
     {
       label: 'Заголовок',

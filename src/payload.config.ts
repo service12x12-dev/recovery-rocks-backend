@@ -13,6 +13,7 @@ import { Users } from './collections/Users'
 import { Topics } from '@/collections/Topics'
 import { Quotes } from '@/collections/Quotes'
 import { FallbackPublications } from '@/globals/FallbackPublications'
+import { CardSet } from '@/globals/CardSet'
 import { Cards } from '@/collections/Cards'
 import { migrations } from './migrations'
 
@@ -28,7 +29,7 @@ export default buildConfig({
     dateFormat: 'do MMMM y, HH:mm',
   },
   collections: [Users, Topics, Quotes, Cards],
-  globals: [FallbackPublications],
+  globals: [FallbackPublications, CardSet],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -90,9 +90,11 @@ export interface Config {
   };
   globals: {
     fallbackPublications: FallbackPublication;
+    cardSet: CardSet;
   };
   globalsSelect: {
     fallbackPublications: FallbackPublicationsSelect<false> | FallbackPublicationsSelect<true>;
+    cardSet: CardSetSelect<false> | CardSetSelect<true>;
   };
   locale: null;
   user: User & {
@@ -380,12 +382,34 @@ export interface FallbackPublication {
   createdAt?: string | null;
 }
 /**
+ * Эти карточки будут показаны пользователям в заданном порядке.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cardSet".
+ */
+export interface CardSet {
+  id: number;
+  cards?: (number | Card)[] | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "fallbackPublications_select".
  */
 export interface FallbackPublicationsSelect<T extends boolean = true> {
   quote?: T;
   topic?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cardSet_select".
+ */
+export interface CardSetSelect<T extends boolean = true> {
+  cards?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

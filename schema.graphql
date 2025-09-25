@@ -27,6 +27,8 @@ type Query {
   docAccessPayloadPreference(id: Int!): payload_preferencesDocAccess
   FallbackPublication(draft: Boolean): FallbackPublication
   docAccessFallbackPublication: fallbackPublicationsDocAccess
+  CardSet(draft: Boolean): CardSet
+  docAccessCardSet: cardSetDocAccess
   Access: Access
 }
 
@@ -2176,6 +2178,103 @@ type FallbackPublicationsUpdateDocAccess {
   where: JSONObject
 }
 
+type CardSet {
+  cards: [Card!]
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type cardSetDocAccess {
+  fields: CardSetDocAccessFields
+  read: CardSetReadDocAccess
+  update: CardSetUpdateDocAccess
+}
+
+type CardSetDocAccessFields {
+  cards: CardSetDocAccessFields_cards
+  updatedAt: CardSetDocAccessFields_updatedAt
+  createdAt: CardSetDocAccessFields_createdAt
+}
+
+type CardSetDocAccessFields_cards {
+  create: CardSetDocAccessFields_cards_Create
+  read: CardSetDocAccessFields_cards_Read
+  update: CardSetDocAccessFields_cards_Update
+  delete: CardSetDocAccessFields_cards_Delete
+}
+
+type CardSetDocAccessFields_cards_Create {
+  permission: Boolean!
+}
+
+type CardSetDocAccessFields_cards_Read {
+  permission: Boolean!
+}
+
+type CardSetDocAccessFields_cards_Update {
+  permission: Boolean!
+}
+
+type CardSetDocAccessFields_cards_Delete {
+  permission: Boolean!
+}
+
+type CardSetDocAccessFields_updatedAt {
+  create: CardSetDocAccessFields_updatedAt_Create
+  read: CardSetDocAccessFields_updatedAt_Read
+  update: CardSetDocAccessFields_updatedAt_Update
+  delete: CardSetDocAccessFields_updatedAt_Delete
+}
+
+type CardSetDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CardSetDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CardSetDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CardSetDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CardSetDocAccessFields_createdAt {
+  create: CardSetDocAccessFields_createdAt_Create
+  read: CardSetDocAccessFields_createdAt_Read
+  update: CardSetDocAccessFields_createdAt_Update
+  delete: CardSetDocAccessFields_createdAt_Delete
+}
+
+type CardSetDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CardSetDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CardSetDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CardSetDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CardSetReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CardSetUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Access {
   canAccessAdmin: Boolean!
   users: usersAccess
@@ -2185,6 +2284,7 @@ type Access {
   payload_locked_documents: payload_locked_documentsAccess
   payload_preferences: payload_preferencesAccess
   fallbackPublications: fallbackPublicationsAccess
+  cardSet: cardSetAccess
 }
 
 type usersAccess {
@@ -3442,6 +3542,97 @@ type FallbackPublicationsUpdateAccess {
   where: JSONObject
 }
 
+type cardSetAccess {
+  fields: CardSetFields
+  read: CardSetReadAccess
+  update: CardSetUpdateAccess
+}
+
+type CardSetFields {
+  cards: CardSetFields_cards
+  updatedAt: CardSetFields_updatedAt
+  createdAt: CardSetFields_createdAt
+}
+
+type CardSetFields_cards {
+  create: CardSetFields_cards_Create
+  read: CardSetFields_cards_Read
+  update: CardSetFields_cards_Update
+  delete: CardSetFields_cards_Delete
+}
+
+type CardSetFields_cards_Create {
+  permission: Boolean!
+}
+
+type CardSetFields_cards_Read {
+  permission: Boolean!
+}
+
+type CardSetFields_cards_Update {
+  permission: Boolean!
+}
+
+type CardSetFields_cards_Delete {
+  permission: Boolean!
+}
+
+type CardSetFields_updatedAt {
+  create: CardSetFields_updatedAt_Create
+  read: CardSetFields_updatedAt_Read
+  update: CardSetFields_updatedAt_Update
+  delete: CardSetFields_updatedAt_Delete
+}
+
+type CardSetFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CardSetFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CardSetFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CardSetFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CardSetFields_createdAt {
+  create: CardSetFields_createdAt_Create
+  read: CardSetFields_createdAt_Read
+  update: CardSetFields_createdAt_Update
+  delete: CardSetFields_createdAt_Delete
+}
+
+type CardSetFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CardSetFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CardSetFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CardSetFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CardSetReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CardSetUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Mutation {
   createUser(data: mutationUserInput!, draft: Boolean): User
   updateUser(id: Int!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean, trash: Boolean): User
@@ -3474,6 +3665,7 @@ type Mutation {
   deletePayloadPreference(id: Int!, trash: Boolean): PayloadPreference
   duplicatePayloadPreference(id: Int!, data: mutationPayloadPreferenceInput!): PayloadPreference
   updateFallbackPublication(data: mutationFallbackPublicationInput!, draft: Boolean): FallbackPublication
+  updateCardSet(data: mutationCardSetInput!, draft: Boolean): CardSet
 }
 
 input mutationUserInput {
@@ -3708,6 +3900,12 @@ enum PayloadPreferenceUpdate_UserRelationshipInputRelationTo {
 input mutationFallbackPublicationInput {
   quote: Int
   topic: Int
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationCardSetInput {
+  cards: [Int]
   updatedAt: String
   createdAt: String
 }
