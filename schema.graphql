@@ -17,6 +17,10 @@ type Query {
   Cards(draft: Boolean, where: Card_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Cards
   countCards(draft: Boolean, trash: Boolean, where: Card_where): countCards
   docAccessCard(id: Int!): cardsDocAccess
+  City(id: Int!, draft: Boolean, trash: Boolean): City
+  Cities(draft: Boolean, where: City_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Cities
+  countCities(draft: Boolean, trash: Boolean, where: City_where): countCities
+  docAccessCity(id: Int!): citiesDocAccess
   PayloadLockedDocument(id: Int!, draft: Boolean, trash: Boolean): PayloadLockedDocument
   PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadLockedDocuments
   countPayloadLockedDocuments(draft: Boolean, trash: Boolean, where: PayloadLockedDocument_where): countPayloadLockedDocuments
@@ -1467,6 +1471,279 @@ type CardsDeleteDocAccess {
   where: JSONObject
 }
 
+type City {
+  id: Int!
+  name: String!
+  phoneNumber: String!
+  phoneNumberDescription: String!
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Cities {
+  docs: [City!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+input City_where {
+  name: City_name_operator
+  phoneNumber: City_phoneNumber_operator
+  phoneNumberDescription: City_phoneNumberDescription_operator
+  updatedAt: City_updatedAt_operator
+  createdAt: City_createdAt_operator
+  id: City_id_operator
+  AND: [City_where_and]
+  OR: [City_where_or]
+}
+
+input City_name_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input City_phoneNumber_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input City_phoneNumberDescription_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input City_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input City_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input City_id_operator {
+  equals: Int
+  not_equals: Int
+  greater_than_equal: Int
+  greater_than: Int
+  less_than_equal: Int
+  less_than: Int
+  exists: Boolean
+}
+
+input City_where_and {
+  name: City_name_operator
+  phoneNumber: City_phoneNumber_operator
+  phoneNumberDescription: City_phoneNumberDescription_operator
+  updatedAt: City_updatedAt_operator
+  createdAt: City_createdAt_operator
+  id: City_id_operator
+  AND: [City_where_and]
+  OR: [City_where_or]
+}
+
+input City_where_or {
+  name: City_name_operator
+  phoneNumber: City_phoneNumber_operator
+  phoneNumberDescription: City_phoneNumberDescription_operator
+  updatedAt: City_updatedAt_operator
+  createdAt: City_createdAt_operator
+  id: City_id_operator
+  AND: [City_where_and]
+  OR: [City_where_or]
+}
+
+type countCities {
+  totalDocs: Int
+}
+
+type citiesDocAccess {
+  fields: CitiesDocAccessFields
+  create: CitiesCreateDocAccess
+  read: CitiesReadDocAccess
+  update: CitiesUpdateDocAccess
+  delete: CitiesDeleteDocAccess
+}
+
+type CitiesDocAccessFields {
+  name: CitiesDocAccessFields_name
+  phoneNumber: CitiesDocAccessFields_phoneNumber
+  phoneNumberDescription: CitiesDocAccessFields_phoneNumberDescription
+  updatedAt: CitiesDocAccessFields_updatedAt
+  createdAt: CitiesDocAccessFields_createdAt
+}
+
+type CitiesDocAccessFields_name {
+  create: CitiesDocAccessFields_name_Create
+  read: CitiesDocAccessFields_name_Read
+  update: CitiesDocAccessFields_name_Update
+  delete: CitiesDocAccessFields_name_Delete
+}
+
+type CitiesDocAccessFields_name_Create {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_name_Read {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_name_Update {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_phoneNumber {
+  create: CitiesDocAccessFields_phoneNumber_Create
+  read: CitiesDocAccessFields_phoneNumber_Read
+  update: CitiesDocAccessFields_phoneNumber_Update
+  delete: CitiesDocAccessFields_phoneNumber_Delete
+}
+
+type CitiesDocAccessFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_phoneNumberDescription {
+  create: CitiesDocAccessFields_phoneNumberDescription_Create
+  read: CitiesDocAccessFields_phoneNumberDescription_Read
+  update: CitiesDocAccessFields_phoneNumberDescription_Update
+  delete: CitiesDocAccessFields_phoneNumberDescription_Delete
+}
+
+type CitiesDocAccessFields_phoneNumberDescription_Create {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_phoneNumberDescription_Read {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_phoneNumberDescription_Update {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_phoneNumberDescription_Delete {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_updatedAt {
+  create: CitiesDocAccessFields_updatedAt_Create
+  read: CitiesDocAccessFields_updatedAt_Read
+  update: CitiesDocAccessFields_updatedAt_Update
+  delete: CitiesDocAccessFields_updatedAt_Delete
+}
+
+type CitiesDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_createdAt {
+  create: CitiesDocAccessFields_createdAt_Create
+  read: CitiesDocAccessFields_createdAt_Read
+  update: CitiesDocAccessFields_createdAt_Update
+  delete: CitiesDocAccessFields_createdAt_Delete
+}
+
+type CitiesDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CitiesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type PayloadLockedDocument {
   id: Int!
   document: PayloadLockedDocument_Document_Relationship
@@ -1486,9 +1763,10 @@ enum PayloadLockedDocument_Document_RelationTo {
   topics
   quotes
   cards
+  cities
 }
 
-union PayloadLockedDocument_Document = User | Topic | Quote | Card
+union PayloadLockedDocument_Document = User | Topic | Quote | Card | City
 
 type PayloadLockedDocument_User_Relationship {
   relationTo: PayloadLockedDocument_User_RelationTo
@@ -1536,6 +1814,7 @@ enum PayloadLockedDocument_document_Relation_RelationTo {
   topics
   quotes
   cards
+  cities
 }
 
 """
@@ -2281,6 +2560,7 @@ type Access {
   topics: topicsAccess
   quotes: quotesAccess
   cards: cardsAccess
+  cities: citiesAccess
   payload_locked_documents: payload_locked_documentsAccess
   payload_preferences: payload_preferencesAccess
   fallbackPublications: fallbackPublicationsAccess
@@ -3125,6 +3405,157 @@ type CardsDeleteAccess {
   where: JSONObject
 }
 
+type citiesAccess {
+  fields: CitiesFields
+  create: CitiesCreateAccess
+  read: CitiesReadAccess
+  update: CitiesUpdateAccess
+  delete: CitiesDeleteAccess
+}
+
+type CitiesFields {
+  name: CitiesFields_name
+  phoneNumber: CitiesFields_phoneNumber
+  phoneNumberDescription: CitiesFields_phoneNumberDescription
+  updatedAt: CitiesFields_updatedAt
+  createdAt: CitiesFields_createdAt
+}
+
+type CitiesFields_name {
+  create: CitiesFields_name_Create
+  read: CitiesFields_name_Read
+  update: CitiesFields_name_Update
+  delete: CitiesFields_name_Delete
+}
+
+type CitiesFields_name_Create {
+  permission: Boolean!
+}
+
+type CitiesFields_name_Read {
+  permission: Boolean!
+}
+
+type CitiesFields_name_Update {
+  permission: Boolean!
+}
+
+type CitiesFields_name_Delete {
+  permission: Boolean!
+}
+
+type CitiesFields_phoneNumber {
+  create: CitiesFields_phoneNumber_Create
+  read: CitiesFields_phoneNumber_Read
+  update: CitiesFields_phoneNumber_Update
+  delete: CitiesFields_phoneNumber_Delete
+}
+
+type CitiesFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type CitiesFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type CitiesFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type CitiesFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type CitiesFields_phoneNumberDescription {
+  create: CitiesFields_phoneNumberDescription_Create
+  read: CitiesFields_phoneNumberDescription_Read
+  update: CitiesFields_phoneNumberDescription_Update
+  delete: CitiesFields_phoneNumberDescription_Delete
+}
+
+type CitiesFields_phoneNumberDescription_Create {
+  permission: Boolean!
+}
+
+type CitiesFields_phoneNumberDescription_Read {
+  permission: Boolean!
+}
+
+type CitiesFields_phoneNumberDescription_Update {
+  permission: Boolean!
+}
+
+type CitiesFields_phoneNumberDescription_Delete {
+  permission: Boolean!
+}
+
+type CitiesFields_updatedAt {
+  create: CitiesFields_updatedAt_Create
+  read: CitiesFields_updatedAt_Read
+  update: CitiesFields_updatedAt_Update
+  delete: CitiesFields_updatedAt_Delete
+}
+
+type CitiesFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CitiesFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CitiesFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CitiesFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CitiesFields_createdAt {
+  create: CitiesFields_createdAt_Create
+  read: CitiesFields_createdAt_Read
+  update: CitiesFields_createdAt_Update
+  delete: CitiesFields_createdAt_Delete
+}
+
+type CitiesFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CitiesFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CitiesFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CitiesFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CitiesCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type payload_locked_documentsAccess {
   fields: PayloadLockedDocumentsFields
   create: PayloadLockedDocumentsCreateAccess
@@ -3656,6 +4087,10 @@ type Mutation {
   updateCard(id: Int!, autosave: Boolean, data: mutationCardUpdateInput!, draft: Boolean, trash: Boolean): Card
   deleteCard(id: Int!, trash: Boolean): Card
   duplicateCard(id: Int!, data: mutationCardInput!): Card
+  createCity(data: mutationCityInput!, draft: Boolean): City
+  updateCity(id: Int!, autosave: Boolean, data: mutationCityUpdateInput!, draft: Boolean, trash: Boolean): City
+  deleteCity(id: Int!, trash: Boolean): City
+  duplicateCity(id: Int!, data: mutationCityInput!): City
   createPayloadLockedDocument(data: mutationPayloadLockedDocumentInput!, draft: Boolean): PayloadLockedDocument
   updatePayloadLockedDocument(id: Int!, autosave: Boolean, data: mutationPayloadLockedDocumentUpdateInput!, draft: Boolean, trash: Boolean): PayloadLockedDocument
   deletePayloadLockedDocument(id: Int!, trash: Boolean): PayloadLockedDocument
@@ -3805,6 +4240,22 @@ input mutationCardUpdateInput {
   createdAt: String
 }
 
+input mutationCityInput {
+  name: String!
+  phoneNumber: String!
+  phoneNumberDescription: String!
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationCityUpdateInput {
+  name: String
+  phoneNumber: String
+  phoneNumberDescription: String
+  updatedAt: String
+  createdAt: String
+}
+
 input mutationPayloadLockedDocumentInput {
   document: PayloadLockedDocument_DocumentRelationshipInput
   globalSlug: String
@@ -3823,6 +4274,7 @@ enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   topics
   quotes
   cards
+  cities
 }
 
 input PayloadLockedDocument_UserRelationshipInput {
@@ -3852,6 +4304,7 @@ enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   topics
   quotes
   cards
+  cities
 }
 
 input PayloadLockedDocumentUpdate_UserRelationshipInput {

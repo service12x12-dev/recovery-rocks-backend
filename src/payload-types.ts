@@ -71,6 +71,7 @@ export interface Config {
     topics: Topic;
     quotes: Quote;
     cards: Card;
+    cities: City;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +82,7 @@ export interface Config {
     topics: TopicsSelect<false> | TopicsSelect<true>;
     quotes: QuotesSelect<false> | QuotesSelect<true>;
     cards: CardsSelect<false> | CardsSelect<true>;
+    cities: CitiesSelect<false> | CitiesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -207,6 +209,18 @@ export interface Card {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities".
+ */
+export interface City {
+  id: number;
+  name: string;
+  phoneNumber: string;
+  phoneNumberDescription: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -227,6 +241,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'cards';
         value: number | Card;
+      } | null)
+    | ({
+        relationTo: 'cities';
+        value: number | City;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -333,6 +351,17 @@ export interface CardsSelect<T extends boolean = true> {
   backgroundColor?: T;
   textColor?: T;
   borderColor?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities_select".
+ */
+export interface CitiesSelect<T extends boolean = true> {
+  name?: T;
+  phoneNumber?: T;
+  phoneNumberDescription?: T;
   updatedAt?: T;
   createdAt?: T;
 }

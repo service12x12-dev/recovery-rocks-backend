@@ -7819,6 +7819,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"libphonenumber-js@npm:^1.12.23":
+  version: 1.12.23
+  resolution: "libphonenumber-js@npm:1.12.23"
+  checksum: 10c0/56ebabdcae6cb4a4da536788c52c231858532e9cc729a0d5dd24d7cd0610f8baf09ed240b9f60fd108d73e54ea1d094f6e90f2a887c0c2c08af2bc53039753fc
+  languageName: node
+  linkType: hard
+
 "lines-and-columns@npm:^1.1.6":
   version: 1.2.4
   resolution: "lines-and-columns@npm:1.2.4"
@@ -9547,6 +9554,7 @@ __metadata:
     eslint-config-next: "npm:15.4.4"
     graphql: "npm:^16.8.1"
     jsdom: "npm:26.1.0"
+    libphonenumber-js: "npm:^1.12.23"
     next: "npm:~15.4.4"
     payload: "npm:3.54.0"
     playwright: "npm:1.54.1"
