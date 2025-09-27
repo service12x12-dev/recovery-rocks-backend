@@ -1,5 +1,6 @@
 import { CollectionConfig } from 'payload'
 import validatePhoneNumber from '@/collections/Cities/validatePhoneNumber'
+import beforeChangePhoneNumber from '@/collections/Cities/beforeChangePhoneNumber'
 
 export const Cities = {
   labels: {
@@ -27,6 +28,9 @@ export const Cities = {
       type: 'text',
       required: true,
       validate: validatePhoneNumber,
+      hooks: {
+        beforeChange: [beforeChangePhoneNumber],
+      },
     },
     {
       label: 'Описание номера телефона',

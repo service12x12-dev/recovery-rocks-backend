@@ -8,7 +8,7 @@ const validatePhoneNumber: Validate<string, City, City, TextField> = (phoneNumbe
     return 'Номер телефона обязателен'
   }
   try {
-    if (!isValidPhoneNumber(phoneNumber)) {
+    if (!isValidPhoneNumber(phoneNumber, 'RU')) {
       return 'Невозможно распознать номер телефона. Попробуйте другой формат.'
     }
   } catch (raw) {
