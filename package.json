@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "docker-build-tar": "docker build -t recovery-rocks-backend:latest . && docker save -o tars/recovery-rocks-backend.tar recovery-rocks-backend:latest",
+    "docker-build-tar": "cross-env DOCKER_BUILDKIT=1 docker build -t recovery-rocks-backend:latest . && docker save -o tars/recovery-rocks-backend.tar recovery-rocks-backend:latest",
     "scp-tar": "scp tars/recovery-rocks-backend.tar root@89.111.172.66:/tmp/docker-images/",
     "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
