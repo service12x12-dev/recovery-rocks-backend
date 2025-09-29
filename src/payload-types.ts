@@ -72,17 +72,33 @@ export interface Config {
     quotes: Quote;
     cards: Card;
     cities: City;
+    supportGroups: SupportGroup;
+    supportGroupEvents: SupportGroupEvent;
+    locations: Location;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    cities: {
+      supportGroups: 'supportGroups';
+    };
+    supportGroups: {
+      events: 'supportGroupEvents';
+    };
+    locations: {
+      supportGroups: 'supportGroups';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     topics: TopicsSelect<false> | TopicsSelect<true>;
     quotes: QuotesSelect<false> | QuotesSelect<true>;
     cards: CardsSelect<false> | CardsSelect<true>;
     cities: CitiesSelect<false> | CitiesSelect<true>;
+    supportGroups: SupportGroupsSelect<false> | SupportGroupsSelect<true>;
+    supportGroupEvents: SupportGroupEventsSelect<false> | SupportGroupEventsSelect<true>;
+    locations: LocationsSelect<false> | LocationsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -216,8 +232,74 @@ export interface City {
   name: string;
   phoneNumber: string;
   phoneNumberDescription: string;
+  supportGroups?: {
+    docs?: (number | SupportGroup)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportGroups".
+ */
+export interface SupportGroup {
+  id: number;
+  _supportGroups_supportGroups_order?: string | null;
+  name: string;
+  location: number | Location;
+  city?: (number | null) | City;
+  events?: {
+    docs?: (number | SupportGroupEvent)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations".
+ */
+export interface Location {
+  id: number;
+  city: number | City;
+  street: string;
+  house: string;
+  apartmentOrOffice?: string | null;
+  entrance?: string | null;
+  floor?: string | null;
+  intercomCode?: string | null;
+  comment?: string | null;
+  supportGroups?: {
+    docs?: (number | SupportGroup)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportGroupEvents".
+ */
+export interface SupportGroupEvent {
+  id: number;
+  supportGroup: number | SupportGroup;
+  day: number;
+  start: TimeStruct;
+  duration: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimeStruct".
+ */
+export interface TimeStruct {
+  hour: number;
+  minute: number;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -245,6 +327,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'cities';
         value: number | City;
+      } | null)
+    | ({
+        relationTo: 'supportGroups';
+        value: number | SupportGroup;
+      } | null)
+    | ({
+        relationTo: 'supportGroupEvents';
+        value: number | SupportGroupEvent;
+      } | null)
+    | ({
+        relationTo: 'locations';
+        value: number | Location;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -362,6 +456,57 @@ export interface CitiesSelect<T extends boolean = true> {
   name?: T;
   phoneNumber?: T;
   phoneNumberDescription?: T;
+  supportGroups?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportGroups_select".
+ */
+export interface SupportGroupsSelect<T extends boolean = true> {
+  _supportGroups_supportGroups_order?: T;
+  name?: T;
+  location?: T;
+  city?: T;
+  events?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportGroupEvents_select".
+ */
+export interface SupportGroupEventsSelect<T extends boolean = true> {
+  supportGroup?: T;
+  day?: T;
+  start?: T | TimeStructSelect<T>;
+  duration?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimeStruct_select".
+ */
+export interface TimeStructSelect<T extends boolean = true> {
+  hour?: T;
+  minute?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations_select".
+ */
+export interface LocationsSelect<T extends boolean = true> {
+  city?: T;
+  street?: T;
+  house?: T;
+  apartmentOrOffice?: T;
+  entrance?: T;
+  floor?: T;
+  intercomCode?: T;
+  comment?: T;
+  supportGroups?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -21,6 +21,18 @@ type Query {
   Cities(draft: Boolean, where: City_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Cities
   countCities(draft: Boolean, trash: Boolean, where: City_where): countCities
   docAccessCity(id: Int!): citiesDocAccess
+  SupportGroup(id: Int!, draft: Boolean, trash: Boolean): SupportGroup
+  SupportGroups(draft: Boolean, where: SupportGroup_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): SupportGroups
+  countSupportGroups(draft: Boolean, trash: Boolean, where: SupportGroup_where): countSupportGroups
+  docAccessSupportGroup(id: Int!): supportGroupsDocAccess
+  SupportGroupEvent(id: Int!, draft: Boolean, trash: Boolean): SupportGroupEvent
+  SupportGroupEvents(draft: Boolean, where: SupportGroupEvent_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): SupportGroupEvents
+  countSupportGroupEvents(draft: Boolean, trash: Boolean, where: SupportGroupEvent_where): countSupportGroupEvents
+  docAccessSupportGroupEvent(id: Int!): supportGroupEventsDocAccess
+  Location(id: Int!, draft: Boolean, trash: Boolean): Location
+  Locations(draft: Boolean, where: Location_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Locations
+  countLocations(draft: Boolean, trash: Boolean, where: Location_where): countLocations
+  docAccessLocation(id: Int!): locationsDocAccess
   PayloadLockedDocument(id: Int!, draft: Boolean, trash: Boolean): PayloadLockedDocument
   PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadLockedDocuments
   countPayloadLockedDocuments(draft: Boolean, trash: Boolean, where: PayloadLockedDocument_where): countPayloadLockedDocuments
@@ -1476,8 +1488,294 @@ type City {
   name: String!
   phoneNumber: String!
   phoneNumberDescription: String!
+  supportGroups(count: Boolean, limit: Int, page: Int, sort: String, where: SupportGroup_where): City_SupportGroups
   updatedAt: DateTime
   createdAt: DateTime
+}
+
+type City_SupportGroups {
+  docs: [SupportGroup!]!
+  hasNextPage: Boolean!
+  totalDocs: Int
+}
+
+type SupportGroup {
+  id: Int!
+  _supportGroups_supportGroups_order: String
+  name: String!
+  location: Location!
+  city: City
+  events(count: Boolean, limit: Int, page: Int, sort: String, where: SupportGroupEvent_where): SupportGroup_Events
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Location {
+  id: Int!
+  city: City!
+  street: String!
+  house: String!
+  apartmentOrOffice: String
+  entrance: String
+  floor: String
+  intercomCode: String
+  comment: String
+  supportGroups(count: Boolean, limit: Int, page: Int, sort: String, where: SupportGroup_where): Location_SupportGroups
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Location_SupportGroups {
+  docs: [SupportGroup!]!
+  hasNextPage: Boolean!
+  totalDocs: Int
+}
+
+input SupportGroup_where {
+  _supportGroups_supportGroups_order: SupportGroup__supportGroups_supportGroups_order_operator
+  name: SupportGroup_name_operator
+  location: SupportGroup_location_operator
+  city: SupportGroup_city_operator
+  updatedAt: SupportGroup_updatedAt_operator
+  createdAt: SupportGroup_createdAt_operator
+  id: SupportGroup_id_operator
+  AND: [SupportGroup_where_and]
+  OR: [SupportGroup_where_or]
+}
+
+input SupportGroup__supportGroups_supportGroups_order_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input SupportGroup_name_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input SupportGroup_location_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+input SupportGroup_city_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input SupportGroup_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input SupportGroup_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input SupportGroup_id_operator {
+  equals: Int
+  not_equals: Int
+  greater_than_equal: Int
+  greater_than: Int
+  less_than_equal: Int
+  less_than: Int
+  exists: Boolean
+}
+
+input SupportGroup_where_and {
+  _supportGroups_supportGroups_order: SupportGroup__supportGroups_supportGroups_order_operator
+  name: SupportGroup_name_operator
+  location: SupportGroup_location_operator
+  city: SupportGroup_city_operator
+  updatedAt: SupportGroup_updatedAt_operator
+  createdAt: SupportGroup_createdAt_operator
+  id: SupportGroup_id_operator
+  AND: [SupportGroup_where_and]
+  OR: [SupportGroup_where_or]
+}
+
+input SupportGroup_where_or {
+  _supportGroups_supportGroups_order: SupportGroup__supportGroups_supportGroups_order_operator
+  name: SupportGroup_name_operator
+  location: SupportGroup_location_operator
+  city: SupportGroup_city_operator
+  updatedAt: SupportGroup_updatedAt_operator
+  createdAt: SupportGroup_createdAt_operator
+  id: SupportGroup_id_operator
+  AND: [SupportGroup_where_and]
+  OR: [SupportGroup_where_or]
+}
+
+type SupportGroup_Events {
+  docs: [SupportGroupEvent!]!
+  hasNextPage: Boolean!
+  totalDocs: Int
+}
+
+type SupportGroupEvent {
+  id: Int!
+  supportGroup: SupportGroup!
+  day: Float!
+  start: TimeStruct
+  duration: Float!
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type TimeStruct {
+  hour: Float
+  minute: Float
+}
+
+input SupportGroupEvent_where {
+  supportGroup: SupportGroupEvent_supportGroup_operator
+  day: SupportGroupEvent_day_operator
+  start__hour: SupportGroupEvent_start__hour_operator
+  start__minute: SupportGroupEvent_start__minute_operator
+  duration: SupportGroupEvent_duration_operator
+  updatedAt: SupportGroupEvent_updatedAt_operator
+  createdAt: SupportGroupEvent_createdAt_operator
+  id: SupportGroupEvent_id_operator
+  AND: [SupportGroupEvent_where_and]
+  OR: [SupportGroupEvent_where_or]
+}
+
+input SupportGroupEvent_supportGroup_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input SupportGroupEvent_day_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input SupportGroupEvent_start__hour_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input SupportGroupEvent_start__minute_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input SupportGroupEvent_duration_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input SupportGroupEvent_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input SupportGroupEvent_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input SupportGroupEvent_id_operator {
+  equals: Int
+  not_equals: Int
+  greater_than_equal: Int
+  greater_than: Int
+  less_than_equal: Int
+  less_than: Int
+  exists: Boolean
+}
+
+input SupportGroupEvent_where_and {
+  supportGroup: SupportGroupEvent_supportGroup_operator
+  day: SupportGroupEvent_day_operator
+  start__hour: SupportGroupEvent_start__hour_operator
+  start__minute: SupportGroupEvent_start__minute_operator
+  duration: SupportGroupEvent_duration_operator
+  updatedAt: SupportGroupEvent_updatedAt_operator
+  createdAt: SupportGroupEvent_createdAt_operator
+  id: SupportGroupEvent_id_operator
+  AND: [SupportGroupEvent_where_and]
+  OR: [SupportGroupEvent_where_or]
+}
+
+input SupportGroupEvent_where_or {
+  supportGroup: SupportGroupEvent_supportGroup_operator
+  day: SupportGroupEvent_day_operator
+  start__hour: SupportGroupEvent_start__hour_operator
+  start__minute: SupportGroupEvent_start__minute_operator
+  duration: SupportGroupEvent_duration_operator
+  updatedAt: SupportGroupEvent_updatedAt_operator
+  createdAt: SupportGroupEvent_createdAt_operator
+  id: SupportGroupEvent_id_operator
+  AND: [SupportGroupEvent_where_and]
+  OR: [SupportGroupEvent_where_or]
 }
 
 type Cities {
@@ -1605,6 +1903,7 @@ type CitiesDocAccessFields {
   name: CitiesDocAccessFields_name
   phoneNumber: CitiesDocAccessFields_phoneNumber
   phoneNumberDescription: CitiesDocAccessFields_phoneNumberDescription
+  supportGroups: CitiesDocAccessFields_supportGroups
   updatedAt: CitiesDocAccessFields_updatedAt
   createdAt: CitiesDocAccessFields_createdAt
 }
@@ -1678,6 +1977,29 @@ type CitiesDocAccessFields_phoneNumberDescription_Delete {
   permission: Boolean!
 }
 
+type CitiesDocAccessFields_supportGroups {
+  create: CitiesDocAccessFields_supportGroups_Create
+  read: CitiesDocAccessFields_supportGroups_Read
+  update: CitiesDocAccessFields_supportGroups_Update
+  delete: CitiesDocAccessFields_supportGroups_Delete
+}
+
+type CitiesDocAccessFields_supportGroups_Create {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_supportGroups_Read {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_supportGroups_Update {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_supportGroups_Delete {
+  permission: Boolean!
+}
+
 type CitiesDocAccessFields_updatedAt {
   create: CitiesDocAccessFields_updatedAt_Create
   read: CitiesDocAccessFields_updatedAt_Read
@@ -1744,6 +2066,944 @@ type CitiesDeleteDocAccess {
   where: JSONObject
 }
 
+type SupportGroups {
+  docs: [SupportGroup!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type countSupportGroups {
+  totalDocs: Int
+}
+
+type supportGroupsDocAccess {
+  fields: SupportGroupsDocAccessFields
+  create: SupportGroupsCreateDocAccess
+  read: SupportGroupsReadDocAccess
+  update: SupportGroupsUpdateDocAccess
+  delete: SupportGroupsDeleteDocAccess
+}
+
+type SupportGroupsDocAccessFields {
+  _supportGroups_supportGroups_order: SupportGroupsDocAccessFields__supportGroups_supportGroups_order
+  name: SupportGroupsDocAccessFields_name
+  location: SupportGroupsDocAccessFields_location
+  city: SupportGroupsDocAccessFields_city
+  events: SupportGroupsDocAccessFields_events
+  updatedAt: SupportGroupsDocAccessFields_updatedAt
+  createdAt: SupportGroupsDocAccessFields_createdAt
+}
+
+type SupportGroupsDocAccessFields__supportGroups_supportGroups_order {
+  create: SupportGroupsDocAccessFields__supportGroups_supportGroups_order_Create
+  read: SupportGroupsDocAccessFields__supportGroups_supportGroups_order_Read
+  update: SupportGroupsDocAccessFields__supportGroups_supportGroups_order_Update
+  delete: SupportGroupsDocAccessFields__supportGroups_supportGroups_order_Delete
+}
+
+type SupportGroupsDocAccessFields__supportGroups_supportGroups_order_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields__supportGroups_supportGroups_order_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields__supportGroups_supportGroups_order_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields__supportGroups_supportGroups_order_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_name {
+  create: SupportGroupsDocAccessFields_name_Create
+  read: SupportGroupsDocAccessFields_name_Read
+  update: SupportGroupsDocAccessFields_name_Update
+  delete: SupportGroupsDocAccessFields_name_Delete
+}
+
+type SupportGroupsDocAccessFields_name_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_name_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_name_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_location {
+  create: SupportGroupsDocAccessFields_location_Create
+  read: SupportGroupsDocAccessFields_location_Read
+  update: SupportGroupsDocAccessFields_location_Update
+  delete: SupportGroupsDocAccessFields_location_Delete
+}
+
+type SupportGroupsDocAccessFields_location_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_location_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_location_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_location_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_city {
+  create: SupportGroupsDocAccessFields_city_Create
+  read: SupportGroupsDocAccessFields_city_Read
+  update: SupportGroupsDocAccessFields_city_Update
+  delete: SupportGroupsDocAccessFields_city_Delete
+}
+
+type SupportGroupsDocAccessFields_city_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_city_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_city_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_city_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_events {
+  create: SupportGroupsDocAccessFields_events_Create
+  read: SupportGroupsDocAccessFields_events_Read
+  update: SupportGroupsDocAccessFields_events_Update
+  delete: SupportGroupsDocAccessFields_events_Delete
+}
+
+type SupportGroupsDocAccessFields_events_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_events_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_events_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_events_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_updatedAt {
+  create: SupportGroupsDocAccessFields_updatedAt_Create
+  read: SupportGroupsDocAccessFields_updatedAt_Read
+  update: SupportGroupsDocAccessFields_updatedAt_Update
+  delete: SupportGroupsDocAccessFields_updatedAt_Delete
+}
+
+type SupportGroupsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_createdAt {
+  create: SupportGroupsDocAccessFields_createdAt_Create
+  read: SupportGroupsDocAccessFields_createdAt_Read
+  update: SupportGroupsDocAccessFields_createdAt_Update
+  delete: SupportGroupsDocAccessFields_createdAt_Delete
+}
+
+type SupportGroupsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupEvents {
+  docs: [SupportGroupEvent!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type countSupportGroupEvents {
+  totalDocs: Int
+}
+
+type supportGroupEventsDocAccess {
+  fields: SupportGroupEventsDocAccessFields
+  create: SupportGroupEventsCreateDocAccess
+  read: SupportGroupEventsReadDocAccess
+  update: SupportGroupEventsUpdateDocAccess
+  delete: SupportGroupEventsDeleteDocAccess
+}
+
+type SupportGroupEventsDocAccessFields {
+  supportGroup: SupportGroupEventsDocAccessFields_supportGroup
+  day: SupportGroupEventsDocAccessFields_day
+  start: SupportGroupEventsDocAccessFields_start
+  duration: SupportGroupEventsDocAccessFields_duration
+  updatedAt: SupportGroupEventsDocAccessFields_updatedAt
+  createdAt: SupportGroupEventsDocAccessFields_createdAt
+}
+
+type SupportGroupEventsDocAccessFields_supportGroup {
+  create: SupportGroupEventsDocAccessFields_supportGroup_Create
+  read: SupportGroupEventsDocAccessFields_supportGroup_Read
+  update: SupportGroupEventsDocAccessFields_supportGroup_Update
+  delete: SupportGroupEventsDocAccessFields_supportGroup_Delete
+}
+
+type SupportGroupEventsDocAccessFields_supportGroup_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_supportGroup_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_supportGroup_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_supportGroup_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_day {
+  create: SupportGroupEventsDocAccessFields_day_Create
+  read: SupportGroupEventsDocAccessFields_day_Read
+  update: SupportGroupEventsDocAccessFields_day_Update
+  delete: SupportGroupEventsDocAccessFields_day_Delete
+}
+
+type SupportGroupEventsDocAccessFields_day_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_day_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_day_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_day_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start {
+  create: SupportGroupEventsDocAccessFields_start_Create
+  read: SupportGroupEventsDocAccessFields_start_Read
+  update: SupportGroupEventsDocAccessFields_start_Update
+  delete: SupportGroupEventsDocAccessFields_start_Delete
+  fields: SupportGroupEventsDocAccessFields_start_Fields
+}
+
+type SupportGroupEventsDocAccessFields_start_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start_Fields {
+  hour: SupportGroupEventsDocAccessFields_start_hour
+  minute: SupportGroupEventsDocAccessFields_start_minute
+}
+
+type SupportGroupEventsDocAccessFields_start_hour {
+  create: SupportGroupEventsDocAccessFields_start_hour_Create
+  read: SupportGroupEventsDocAccessFields_start_hour_Read
+  update: SupportGroupEventsDocAccessFields_start_hour_Update
+  delete: SupportGroupEventsDocAccessFields_start_hour_Delete
+}
+
+type SupportGroupEventsDocAccessFields_start_hour_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start_hour_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start_hour_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start_hour_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start_minute {
+  create: SupportGroupEventsDocAccessFields_start_minute_Create
+  read: SupportGroupEventsDocAccessFields_start_minute_Read
+  update: SupportGroupEventsDocAccessFields_start_minute_Update
+  delete: SupportGroupEventsDocAccessFields_start_minute_Delete
+}
+
+type SupportGroupEventsDocAccessFields_start_minute_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start_minute_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start_minute_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_start_minute_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_duration {
+  create: SupportGroupEventsDocAccessFields_duration_Create
+  read: SupportGroupEventsDocAccessFields_duration_Read
+  update: SupportGroupEventsDocAccessFields_duration_Update
+  delete: SupportGroupEventsDocAccessFields_duration_Delete
+}
+
+type SupportGroupEventsDocAccessFields_duration_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_duration_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_duration_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_duration_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_updatedAt {
+  create: SupportGroupEventsDocAccessFields_updatedAt_Create
+  read: SupportGroupEventsDocAccessFields_updatedAt_Read
+  update: SupportGroupEventsDocAccessFields_updatedAt_Update
+  delete: SupportGroupEventsDocAccessFields_updatedAt_Delete
+}
+
+type SupportGroupEventsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_createdAt {
+  create: SupportGroupEventsDocAccessFields_createdAt_Create
+  read: SupportGroupEventsDocAccessFields_createdAt_Read
+  update: SupportGroupEventsDocAccessFields_createdAt_Update
+  delete: SupportGroupEventsDocAccessFields_createdAt_Delete
+}
+
+type SupportGroupEventsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupEventsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupEventsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupEventsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Locations {
+  docs: [Location!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+input Location_where {
+  city: Location_city_operator
+  street: Location_street_operator
+  house: Location_house_operator
+  apartmentOrOffice: Location_apartmentOrOffice_operator
+  entrance: Location_entrance_operator
+  floor: Location_floor_operator
+  intercomCode: Location_intercomCode_operator
+  comment: Location_comment_operator
+  updatedAt: Location_updatedAt_operator
+  createdAt: Location_createdAt_operator
+  id: Location_id_operator
+  AND: [Location_where_and]
+  OR: [Location_where_or]
+}
+
+input Location_city_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input Location_street_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Location_house_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Location_apartmentOrOffice_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Location_entrance_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Location_floor_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Location_intercomCode_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Location_comment_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Location_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Location_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Location_id_operator {
+  equals: Int
+  not_equals: Int
+  greater_than_equal: Int
+  greater_than: Int
+  less_than_equal: Int
+  less_than: Int
+  exists: Boolean
+}
+
+input Location_where_and {
+  city: Location_city_operator
+  street: Location_street_operator
+  house: Location_house_operator
+  apartmentOrOffice: Location_apartmentOrOffice_operator
+  entrance: Location_entrance_operator
+  floor: Location_floor_operator
+  intercomCode: Location_intercomCode_operator
+  comment: Location_comment_operator
+  updatedAt: Location_updatedAt_operator
+  createdAt: Location_createdAt_operator
+  id: Location_id_operator
+  AND: [Location_where_and]
+  OR: [Location_where_or]
+}
+
+input Location_where_or {
+  city: Location_city_operator
+  street: Location_street_operator
+  house: Location_house_operator
+  apartmentOrOffice: Location_apartmentOrOffice_operator
+  entrance: Location_entrance_operator
+  floor: Location_floor_operator
+  intercomCode: Location_intercomCode_operator
+  comment: Location_comment_operator
+  updatedAt: Location_updatedAt_operator
+  createdAt: Location_createdAt_operator
+  id: Location_id_operator
+  AND: [Location_where_and]
+  OR: [Location_where_or]
+}
+
+type countLocations {
+  totalDocs: Int
+}
+
+type locationsDocAccess {
+  fields: LocationsDocAccessFields
+  create: LocationsCreateDocAccess
+  read: LocationsReadDocAccess
+  update: LocationsUpdateDocAccess
+  delete: LocationsDeleteDocAccess
+}
+
+type LocationsDocAccessFields {
+  city: LocationsDocAccessFields_city
+  street: LocationsDocAccessFields_street
+  house: LocationsDocAccessFields_house
+  apartmentOrOffice: LocationsDocAccessFields_apartmentOrOffice
+  entrance: LocationsDocAccessFields_entrance
+  floor: LocationsDocAccessFields_floor
+  intercomCode: LocationsDocAccessFields_intercomCode
+  comment: LocationsDocAccessFields_comment
+  supportGroups: LocationsDocAccessFields_supportGroups
+  updatedAt: LocationsDocAccessFields_updatedAt
+  createdAt: LocationsDocAccessFields_createdAt
+}
+
+type LocationsDocAccessFields_city {
+  create: LocationsDocAccessFields_city_Create
+  read: LocationsDocAccessFields_city_Read
+  update: LocationsDocAccessFields_city_Update
+  delete: LocationsDocAccessFields_city_Delete
+}
+
+type LocationsDocAccessFields_city_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_city_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_city_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_city_Delete {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_street {
+  create: LocationsDocAccessFields_street_Create
+  read: LocationsDocAccessFields_street_Read
+  update: LocationsDocAccessFields_street_Update
+  delete: LocationsDocAccessFields_street_Delete
+}
+
+type LocationsDocAccessFields_street_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_street_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_street_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_street_Delete {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_house {
+  create: LocationsDocAccessFields_house_Create
+  read: LocationsDocAccessFields_house_Read
+  update: LocationsDocAccessFields_house_Update
+  delete: LocationsDocAccessFields_house_Delete
+}
+
+type LocationsDocAccessFields_house_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_house_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_house_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_house_Delete {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_apartmentOrOffice {
+  create: LocationsDocAccessFields_apartmentOrOffice_Create
+  read: LocationsDocAccessFields_apartmentOrOffice_Read
+  update: LocationsDocAccessFields_apartmentOrOffice_Update
+  delete: LocationsDocAccessFields_apartmentOrOffice_Delete
+}
+
+type LocationsDocAccessFields_apartmentOrOffice_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_apartmentOrOffice_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_apartmentOrOffice_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_apartmentOrOffice_Delete {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_entrance {
+  create: LocationsDocAccessFields_entrance_Create
+  read: LocationsDocAccessFields_entrance_Read
+  update: LocationsDocAccessFields_entrance_Update
+  delete: LocationsDocAccessFields_entrance_Delete
+}
+
+type LocationsDocAccessFields_entrance_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_entrance_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_entrance_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_entrance_Delete {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_floor {
+  create: LocationsDocAccessFields_floor_Create
+  read: LocationsDocAccessFields_floor_Read
+  update: LocationsDocAccessFields_floor_Update
+  delete: LocationsDocAccessFields_floor_Delete
+}
+
+type LocationsDocAccessFields_floor_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_floor_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_floor_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_floor_Delete {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_intercomCode {
+  create: LocationsDocAccessFields_intercomCode_Create
+  read: LocationsDocAccessFields_intercomCode_Read
+  update: LocationsDocAccessFields_intercomCode_Update
+  delete: LocationsDocAccessFields_intercomCode_Delete
+}
+
+type LocationsDocAccessFields_intercomCode_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_intercomCode_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_intercomCode_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_intercomCode_Delete {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_comment {
+  create: LocationsDocAccessFields_comment_Create
+  read: LocationsDocAccessFields_comment_Read
+  update: LocationsDocAccessFields_comment_Update
+  delete: LocationsDocAccessFields_comment_Delete
+}
+
+type LocationsDocAccessFields_comment_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_comment_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_comment_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_comment_Delete {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_supportGroups {
+  create: LocationsDocAccessFields_supportGroups_Create
+  read: LocationsDocAccessFields_supportGroups_Read
+  update: LocationsDocAccessFields_supportGroups_Update
+  delete: LocationsDocAccessFields_supportGroups_Delete
+}
+
+type LocationsDocAccessFields_supportGroups_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_supportGroups_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_supportGroups_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_supportGroups_Delete {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_updatedAt {
+  create: LocationsDocAccessFields_updatedAt_Create
+  read: LocationsDocAccessFields_updatedAt_Read
+  update: LocationsDocAccessFields_updatedAt_Update
+  delete: LocationsDocAccessFields_updatedAt_Delete
+}
+
+type LocationsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_createdAt {
+  create: LocationsDocAccessFields_createdAt_Create
+  read: LocationsDocAccessFields_createdAt_Read
+  update: LocationsDocAccessFields_createdAt_Update
+  delete: LocationsDocAccessFields_createdAt_Delete
+}
+
+type LocationsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type LocationsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type LocationsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type LocationsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type LocationsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type PayloadLockedDocument {
   id: Int!
   document: PayloadLockedDocument_Document_Relationship
@@ -1764,9 +3024,12 @@ enum PayloadLockedDocument_Document_RelationTo {
   quotes
   cards
   cities
+  supportGroups
+  supportGroupEvents
+  locations
 }
 
-union PayloadLockedDocument_Document = User | Topic | Quote | Card | City
+union PayloadLockedDocument_Document = User | Topic | Quote | Card | City | SupportGroup | SupportGroupEvent | Location
 
 type PayloadLockedDocument_User_Relationship {
   relationTo: PayloadLockedDocument_User_RelationTo
@@ -1815,12 +3078,10 @@ enum PayloadLockedDocument_document_Relation_RelationTo {
   quotes
   cards
   cities
+  supportGroups
+  supportGroupEvents
+  locations
 }
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 input PayloadLockedDocument_globalSlug_operator {
   equals: String
@@ -2561,6 +3822,9 @@ type Access {
   quotes: quotesAccess
   cards: cardsAccess
   cities: citiesAccess
+  supportGroups: supportGroupsAccess
+  supportGroupEvents: supportGroupEventsAccess
+  locations: locationsAccess
   payload_locked_documents: payload_locked_documentsAccess
   payload_preferences: payload_preferencesAccess
   fallbackPublications: fallbackPublicationsAccess
@@ -3417,6 +4681,7 @@ type CitiesFields {
   name: CitiesFields_name
   phoneNumber: CitiesFields_phoneNumber
   phoneNumberDescription: CitiesFields_phoneNumberDescription
+  supportGroups: CitiesFields_supportGroups
   updatedAt: CitiesFields_updatedAt
   createdAt: CitiesFields_createdAt
 }
@@ -3490,6 +4755,29 @@ type CitiesFields_phoneNumberDescription_Delete {
   permission: Boolean!
 }
 
+type CitiesFields_supportGroups {
+  create: CitiesFields_supportGroups_Create
+  read: CitiesFields_supportGroups_Read
+  update: CitiesFields_supportGroups_Update
+  delete: CitiesFields_supportGroups_Delete
+}
+
+type CitiesFields_supportGroups_Create {
+  permission: Boolean!
+}
+
+type CitiesFields_supportGroups_Read {
+  permission: Boolean!
+}
+
+type CitiesFields_supportGroups_Update {
+  permission: Boolean!
+}
+
+type CitiesFields_supportGroups_Delete {
+  permission: Boolean!
+}
+
 type CitiesFields_updatedAt {
   create: CitiesFields_updatedAt_Create
   read: CitiesFields_updatedAt_Read
@@ -3552,6 +4840,727 @@ type CitiesUpdateAccess {
 }
 
 type CitiesDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type supportGroupsAccess {
+  fields: SupportGroupsFields
+  create: SupportGroupsCreateAccess
+  read: SupportGroupsReadAccess
+  update: SupportGroupsUpdateAccess
+  delete: SupportGroupsDeleteAccess
+}
+
+type SupportGroupsFields {
+  _supportGroups_supportGroups_order: SupportGroupsFields__supportGroups_supportGroups_order
+  name: SupportGroupsFields_name
+  location: SupportGroupsFields_location
+  city: SupportGroupsFields_city
+  events: SupportGroupsFields_events
+  updatedAt: SupportGroupsFields_updatedAt
+  createdAt: SupportGroupsFields_createdAt
+}
+
+type SupportGroupsFields__supportGroups_supportGroups_order {
+  create: SupportGroupsFields__supportGroups_supportGroups_order_Create
+  read: SupportGroupsFields__supportGroups_supportGroups_order_Read
+  update: SupportGroupsFields__supportGroups_supportGroups_order_Update
+  delete: SupportGroupsFields__supportGroups_supportGroups_order_Delete
+}
+
+type SupportGroupsFields__supportGroups_supportGroups_order_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsFields__supportGroups_supportGroups_order_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsFields__supportGroups_supportGroups_order_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsFields__supportGroups_supportGroups_order_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_name {
+  create: SupportGroupsFields_name_Create
+  read: SupportGroupsFields_name_Read
+  update: SupportGroupsFields_name_Update
+  delete: SupportGroupsFields_name_Delete
+}
+
+type SupportGroupsFields_name_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_name_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_name_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_name_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_location {
+  create: SupportGroupsFields_location_Create
+  read: SupportGroupsFields_location_Read
+  update: SupportGroupsFields_location_Update
+  delete: SupportGroupsFields_location_Delete
+}
+
+type SupportGroupsFields_location_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_location_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_location_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_location_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_city {
+  create: SupportGroupsFields_city_Create
+  read: SupportGroupsFields_city_Read
+  update: SupportGroupsFields_city_Update
+  delete: SupportGroupsFields_city_Delete
+}
+
+type SupportGroupsFields_city_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_city_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_city_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_city_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_events {
+  create: SupportGroupsFields_events_Create
+  read: SupportGroupsFields_events_Read
+  update: SupportGroupsFields_events_Update
+  delete: SupportGroupsFields_events_Delete
+}
+
+type SupportGroupsFields_events_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_events_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_events_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_events_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_updatedAt {
+  create: SupportGroupsFields_updatedAt_Create
+  read: SupportGroupsFields_updatedAt_Read
+  update: SupportGroupsFields_updatedAt_Update
+  delete: SupportGroupsFields_updatedAt_Delete
+}
+
+type SupportGroupsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_createdAt {
+  create: SupportGroupsFields_createdAt_Create
+  read: SupportGroupsFields_createdAt_Read
+  update: SupportGroupsFields_createdAt_Update
+  delete: SupportGroupsFields_createdAt_Delete
+}
+
+type SupportGroupsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type SupportGroupsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupsDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type supportGroupEventsAccess {
+  fields: SupportGroupEventsFields
+  create: SupportGroupEventsCreateAccess
+  read: SupportGroupEventsReadAccess
+  update: SupportGroupEventsUpdateAccess
+  delete: SupportGroupEventsDeleteAccess
+}
+
+type SupportGroupEventsFields {
+  supportGroup: SupportGroupEventsFields_supportGroup
+  day: SupportGroupEventsFields_day
+  start: SupportGroupEventsFields_start
+  duration: SupportGroupEventsFields_duration
+  updatedAt: SupportGroupEventsFields_updatedAt
+  createdAt: SupportGroupEventsFields_createdAt
+}
+
+type SupportGroupEventsFields_supportGroup {
+  create: SupportGroupEventsFields_supportGroup_Create
+  read: SupportGroupEventsFields_supportGroup_Read
+  update: SupportGroupEventsFields_supportGroup_Update
+  delete: SupportGroupEventsFields_supportGroup_Delete
+}
+
+type SupportGroupEventsFields_supportGroup_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_supportGroup_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_supportGroup_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_supportGroup_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_day {
+  create: SupportGroupEventsFields_day_Create
+  read: SupportGroupEventsFields_day_Read
+  update: SupportGroupEventsFields_day_Update
+  delete: SupportGroupEventsFields_day_Delete
+}
+
+type SupportGroupEventsFields_day_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_day_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_day_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_day_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start {
+  create: SupportGroupEventsFields_start_Create
+  read: SupportGroupEventsFields_start_Read
+  update: SupportGroupEventsFields_start_Update
+  delete: SupportGroupEventsFields_start_Delete
+  fields: SupportGroupEventsFields_start_Fields
+}
+
+type SupportGroupEventsFields_start_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start_Fields {
+  hour: SupportGroupEventsFields_start_hour
+  minute: SupportGroupEventsFields_start_minute
+}
+
+type SupportGroupEventsFields_start_hour {
+  create: SupportGroupEventsFields_start_hour_Create
+  read: SupportGroupEventsFields_start_hour_Read
+  update: SupportGroupEventsFields_start_hour_Update
+  delete: SupportGroupEventsFields_start_hour_Delete
+}
+
+type SupportGroupEventsFields_start_hour_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start_hour_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start_hour_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start_hour_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start_minute {
+  create: SupportGroupEventsFields_start_minute_Create
+  read: SupportGroupEventsFields_start_minute_Read
+  update: SupportGroupEventsFields_start_minute_Update
+  delete: SupportGroupEventsFields_start_minute_Delete
+}
+
+type SupportGroupEventsFields_start_minute_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start_minute_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start_minute_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_start_minute_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_duration {
+  create: SupportGroupEventsFields_duration_Create
+  read: SupportGroupEventsFields_duration_Read
+  update: SupportGroupEventsFields_duration_Update
+  delete: SupportGroupEventsFields_duration_Delete
+}
+
+type SupportGroupEventsFields_duration_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_duration_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_duration_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_duration_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_updatedAt {
+  create: SupportGroupEventsFields_updatedAt_Create
+  read: SupportGroupEventsFields_updatedAt_Read
+  update: SupportGroupEventsFields_updatedAt_Update
+  delete: SupportGroupEventsFields_updatedAt_Delete
+}
+
+type SupportGroupEventsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_createdAt {
+  create: SupportGroupEventsFields_createdAt_Create
+  read: SupportGroupEventsFields_createdAt_Read
+  update: SupportGroupEventsFields_createdAt_Update
+  delete: SupportGroupEventsFields_createdAt_Delete
+}
+
+type SupportGroupEventsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupEventsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupEventsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SupportGroupEventsDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type locationsAccess {
+  fields: LocationsFields
+  create: LocationsCreateAccess
+  read: LocationsReadAccess
+  update: LocationsUpdateAccess
+  delete: LocationsDeleteAccess
+}
+
+type LocationsFields {
+  city: LocationsFields_city
+  street: LocationsFields_street
+  house: LocationsFields_house
+  apartmentOrOffice: LocationsFields_apartmentOrOffice
+  entrance: LocationsFields_entrance
+  floor: LocationsFields_floor
+  intercomCode: LocationsFields_intercomCode
+  comment: LocationsFields_comment
+  supportGroups: LocationsFields_supportGroups
+  updatedAt: LocationsFields_updatedAt
+  createdAt: LocationsFields_createdAt
+}
+
+type LocationsFields_city {
+  create: LocationsFields_city_Create
+  read: LocationsFields_city_Read
+  update: LocationsFields_city_Update
+  delete: LocationsFields_city_Delete
+}
+
+type LocationsFields_city_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_city_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_city_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_city_Delete {
+  permission: Boolean!
+}
+
+type LocationsFields_street {
+  create: LocationsFields_street_Create
+  read: LocationsFields_street_Read
+  update: LocationsFields_street_Update
+  delete: LocationsFields_street_Delete
+}
+
+type LocationsFields_street_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_street_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_street_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_street_Delete {
+  permission: Boolean!
+}
+
+type LocationsFields_house {
+  create: LocationsFields_house_Create
+  read: LocationsFields_house_Read
+  update: LocationsFields_house_Update
+  delete: LocationsFields_house_Delete
+}
+
+type LocationsFields_house_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_house_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_house_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_house_Delete {
+  permission: Boolean!
+}
+
+type LocationsFields_apartmentOrOffice {
+  create: LocationsFields_apartmentOrOffice_Create
+  read: LocationsFields_apartmentOrOffice_Read
+  update: LocationsFields_apartmentOrOffice_Update
+  delete: LocationsFields_apartmentOrOffice_Delete
+}
+
+type LocationsFields_apartmentOrOffice_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_apartmentOrOffice_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_apartmentOrOffice_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_apartmentOrOffice_Delete {
+  permission: Boolean!
+}
+
+type LocationsFields_entrance {
+  create: LocationsFields_entrance_Create
+  read: LocationsFields_entrance_Read
+  update: LocationsFields_entrance_Update
+  delete: LocationsFields_entrance_Delete
+}
+
+type LocationsFields_entrance_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_entrance_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_entrance_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_entrance_Delete {
+  permission: Boolean!
+}
+
+type LocationsFields_floor {
+  create: LocationsFields_floor_Create
+  read: LocationsFields_floor_Read
+  update: LocationsFields_floor_Update
+  delete: LocationsFields_floor_Delete
+}
+
+type LocationsFields_floor_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_floor_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_floor_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_floor_Delete {
+  permission: Boolean!
+}
+
+type LocationsFields_intercomCode {
+  create: LocationsFields_intercomCode_Create
+  read: LocationsFields_intercomCode_Read
+  update: LocationsFields_intercomCode_Update
+  delete: LocationsFields_intercomCode_Delete
+}
+
+type LocationsFields_intercomCode_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_intercomCode_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_intercomCode_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_intercomCode_Delete {
+  permission: Boolean!
+}
+
+type LocationsFields_comment {
+  create: LocationsFields_comment_Create
+  read: LocationsFields_comment_Read
+  update: LocationsFields_comment_Update
+  delete: LocationsFields_comment_Delete
+}
+
+type LocationsFields_comment_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_comment_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_comment_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_comment_Delete {
+  permission: Boolean!
+}
+
+type LocationsFields_supportGroups {
+  create: LocationsFields_supportGroups_Create
+  read: LocationsFields_supportGroups_Read
+  update: LocationsFields_supportGroups_Update
+  delete: LocationsFields_supportGroups_Delete
+}
+
+type LocationsFields_supportGroups_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_supportGroups_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_supportGroups_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_supportGroups_Delete {
+  permission: Boolean!
+}
+
+type LocationsFields_updatedAt {
+  create: LocationsFields_updatedAt_Create
+  read: LocationsFields_updatedAt_Read
+  update: LocationsFields_updatedAt_Update
+  delete: LocationsFields_updatedAt_Delete
+}
+
+type LocationsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type LocationsFields_createdAt {
+  create: LocationsFields_createdAt_Create
+  read: LocationsFields_createdAt_Read
+  update: LocationsFields_createdAt_Update
+  delete: LocationsFields_createdAt_Delete
+}
+
+type LocationsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type LocationsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type LocationsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type LocationsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type LocationsDeleteAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -4091,6 +6100,18 @@ type Mutation {
   updateCity(id: Int!, autosave: Boolean, data: mutationCityUpdateInput!, draft: Boolean, trash: Boolean): City
   deleteCity(id: Int!, trash: Boolean): City
   duplicateCity(id: Int!, data: mutationCityInput!): City
+  createSupportGroup(data: mutationSupportGroupInput!, draft: Boolean): SupportGroup
+  updateSupportGroup(id: Int!, autosave: Boolean, data: mutationSupportGroupUpdateInput!, draft: Boolean, trash: Boolean): SupportGroup
+  deleteSupportGroup(id: Int!, trash: Boolean): SupportGroup
+  duplicateSupportGroup(id: Int!, data: mutationSupportGroupInput!): SupportGroup
+  createSupportGroupEvent(data: mutationSupportGroupEventInput!, draft: Boolean): SupportGroupEvent
+  updateSupportGroupEvent(id: Int!, autosave: Boolean, data: mutationSupportGroupEventUpdateInput!, draft: Boolean, trash: Boolean): SupportGroupEvent
+  deleteSupportGroupEvent(id: Int!, trash: Boolean): SupportGroupEvent
+  duplicateSupportGroupEvent(id: Int!, data: mutationSupportGroupEventInput!): SupportGroupEvent
+  createLocation(data: mutationLocationInput!, draft: Boolean): Location
+  updateLocation(id: Int!, autosave: Boolean, data: mutationLocationUpdateInput!, draft: Boolean, trash: Boolean): Location
+  deleteLocation(id: Int!, trash: Boolean): Location
+  duplicateLocation(id: Int!, data: mutationLocationInput!): Location
   createPayloadLockedDocument(data: mutationPayloadLockedDocumentInput!, draft: Boolean): PayloadLockedDocument
   updatePayloadLockedDocument(id: Int!, autosave: Boolean, data: mutationPayloadLockedDocumentUpdateInput!, draft: Boolean, trash: Boolean): PayloadLockedDocument
   deletePayloadLockedDocument(id: Int!, trash: Boolean): PayloadLockedDocument
@@ -4256,6 +6277,78 @@ input mutationCityUpdateInput {
   createdAt: String
 }
 
+input mutationSupportGroupInput {
+  _supportGroups_supportGroups_order: String
+  name: String!
+  location: Int
+  city: Int
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationSupportGroupUpdateInput {
+  _supportGroups_supportGroups_order: String
+  name: String
+  location: Int
+  city: Int
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationSupportGroupEventInput {
+  supportGroup: Int
+  day: Float!
+  start: mutationSupportGroupEvent_StartInput
+  duration: Float!
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationSupportGroupEvent_StartInput {
+  hour: Float!
+  minute: Float!
+}
+
+input mutationSupportGroupEventUpdateInput {
+  supportGroup: Int
+  day: Float
+  start: mutationSupportGroupEventUpdate_StartInput
+  duration: Float
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationSupportGroupEventUpdate_StartInput {
+  hour: Float!
+  minute: Float!
+}
+
+input mutationLocationInput {
+  city: Int
+  street: String!
+  house: String!
+  apartmentOrOffice: String
+  entrance: String
+  floor: String
+  intercomCode: String
+  comment: String
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationLocationUpdateInput {
+  city: Int
+  street: String
+  house: String
+  apartmentOrOffice: String
+  entrance: String
+  floor: String
+  intercomCode: String
+  comment: String
+  updatedAt: String
+  createdAt: String
+}
+
 input mutationPayloadLockedDocumentInput {
   document: PayloadLockedDocument_DocumentRelationshipInput
   globalSlug: String
@@ -4275,6 +6368,9 @@ enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   quotes
   cards
   cities
+  supportGroups
+  supportGroupEvents
+  locations
 }
 
 input PayloadLockedDocument_UserRelationshipInput {
@@ -4305,6 +6401,9 @@ enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   quotes
   cards
   cities
+  supportGroups
+  supportGroupEvents
+  locations
 }
 
 input PayloadLockedDocumentUpdate_UserRelationshipInput {

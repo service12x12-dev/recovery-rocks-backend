@@ -17,6 +17,9 @@ import { CardSet } from '@/globals/CardSet'
 import { Cards } from '@/collections/Cards'
 import { Cities } from '@/collections/Cities/Cities'
 import { migrations } from './migrations'
+import { SupportGroups } from '@/collections/SupportGroups'
+import { SupportGroupEvents } from '@/collections/SupportGroupEvents'
+import { Locations } from '@/collections/Locations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -29,7 +32,7 @@ export default buildConfig({
     },
     dateFormat: 'do MMMM y, HH:mm',
   },
-  collections: [Users, Topics, Quotes, Cards, Cities],
+  collections: [Users, Topics, Quotes, Cards, Cities, SupportGroups, SupportGroupEvents, Locations],
   globals: [FallbackPublications, CardSet],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

@@ -20,6 +20,7 @@ export const Cities = {
       name: 'name',
       type: 'text',
       index: true,
+      unique: true,
       required: true,
     },
     {
@@ -38,6 +39,16 @@ export const Cities = {
       type: 'text',
       required: true,
       defaultValue: 'Горячая линия',
+    },
+    {
+      label: 'Группы поддержки',
+      name: 'supportGroups',
+      type: 'join',
+      collection: 'supportGroups',
+      on: 'city',
+      orderable: true,
+      defaultLimit: 0,
+      virtual: true,
     },
   ],
 } satisfies CollectionConfig<'cities'>
