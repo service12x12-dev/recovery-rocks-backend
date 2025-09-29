@@ -2,6 +2,7 @@ import validateDay from '@/mixins/PeriodicIssue/validateDay'
 import validateMonth from '@/mixins/PeriodicIssue/validateMonth'
 import type { Field, CompoundIndex, CollectionConfig } from 'payload'
 import afterRead from '@/mixins/PeriodicIssue/afterRead'
+import { RussianMonth } from '@/i18n/RussianMonth'
 
 const fields = [
   {
@@ -34,8 +35,14 @@ const fields = [
         index: true,
         admin: {
           components: {
-            Cell: '@/components/MonthCell',
-            Field: '@/components/MonthFieldClient',
+            Cell: {
+              path: '@/components/NumberSelectCell',
+              clientProps: { numberLabelMap: RussianMonth },
+            },
+            Field: {
+              path: '@/components/NumberSelectFieldClient',
+              clientProps: { numberLabelMap: RussianMonth },
+            },
           },
         },
       },

@@ -1,14 +1,18 @@
 'use client'
-import React, { useCallback, useMemo } from 'react'
+import React, { ComponentProps, useCallback, useMemo } from 'react'
 import { SelectInput, useField } from '@payloadcms/ui'
 import type { ClientField, NumberFieldClientComponent, OptionObject } from 'payload'
-import { RussianMonth } from '@/i18n/RussianMonth'
+import { NumberLabelMap } from '@/components/NumberLabelMap'
+
+export type CustomNumberFieldClientProps = {
+  numberLabelMap: NumberLabelMap
+} & ComponentProps<NumberFieldClientComponent>
 
 /**
  * {@link https://github.com/payloadcms/payload/blob/main/packages/ui/src/fields/Select/index.tsx}
  * {@link https://github.com/payloadcms/payload/blob/main/packages/ui/src/fields/Select/Input.tsx}
  */
-const CustomNumberFieldClient: NumberFieldClientComponent = (props) => {
+export default function CustomNumberFieldClient(props: CustomNumberFieldClientProps) {
   const {
     field,
     field: {
@@ -22,6 +26,7 @@ const CustomNumberFieldClient: NumberFieldClientComponent = (props) => {
     onChange: onChangeFromProps,
     path: pathFromProps,
     readOnly,
+    numberLabelMap,
   } = props
 
   const isClearable = true
@@ -69,6 +74,15 @@ const CustomNumberFieldClient: NumberFieldClientComponent = (props) => {
 
   const styles = useMemo(() => mergeFieldStyles(field), [field])
 
+  const options = useMemo(
+    () =>
+      range(0, 12).map((_) => ({
+        value: String(_),
+        label: numberLabelMap[_] ?? String(_),
+      })) satisfies OptionObject[],
+    [numberLabelMap],
+  )
+
   return (
     <SelectInput
       AfterInput={AfterInput}
@@ -85,7 +99,7 @@ const CustomNumberFieldClient: NumberFieldClientComponent = (props) => {
       localized={localized}
       name={name}
       onChange={onChange as (value: Option | Option[]) => void}
-      options={OPTIONS}
+      options={options}
       path={path}
       placeholder={placeholder as string}
       readOnly={readOnly || disabled}
@@ -96,8 +110,6 @@ const CustomNumberFieldClient: NumberFieldClientComponent = (props) => {
     />
   )
 }
-
-export default CustomNumberFieldClient
 
 function toSelectValue(_: number | number[] | undefined): string | string[] | undefined {
   return Array.isArray(_)
@@ -126,11 +138,6 @@ function parseOrNull(_: string): number | null {
   }
   return result
 }
-
-const OPTIONS = range(0, 12).map((_) => ({
-  value: String(_),
-  label: RussianMonth[_],
-})) satisfies OptionObject[]
 
 function range(from: number, to: number): number[] {
   const result = []

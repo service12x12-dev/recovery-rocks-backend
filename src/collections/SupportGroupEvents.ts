@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload'
+import { RussianDayOfTheWeek } from '@/i18n/RussianDayOfTheWeek'
 
 export const SupportGroupEvents = {
   labels: {
@@ -37,6 +38,18 @@ export const SupportGroupEvents = {
       required: true,
       min: 0,
       max: 6,
+      admin: {
+        components: {
+          Cell: {
+            path: '@/components/NumberSelectCell',
+            clientProps: { numberLabelMap: RussianDayOfTheWeek },
+          },
+          Field: {
+            path: '@/components/NumberSelectFieldClient',
+            clientProps: { numberLabelMap: RussianDayOfTheWeek },
+          },
+        },
+      },
     },
     {
       label: 'Время начала',
