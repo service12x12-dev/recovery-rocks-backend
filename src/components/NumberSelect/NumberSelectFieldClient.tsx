@@ -1,8 +1,10 @@
 'use client'
-import React, { ComponentProps, useCallback, useMemo } from 'react'
+import React, { ComponentProps, useMemo } from 'react'
 import { SelectInput, useField } from '@payloadcms/ui'
-import type { ClientField, NumberFieldClientComponent, OptionObject } from 'payload'
-import { NumberLabelMap } from '@/components/NumberLabelMap'
+import type { NumberFieldClientComponent, OptionObject } from 'payload'
+import { NumberLabelMap } from '@/components/NumberSelect/NumberLabelMap'
+import mergeFieldStyles from '@/components/common/mergeFieldStyles'
+import useSelectOnChange from '@/components/common/useSelectOnChange'
 
 export type CustomNumberFieldClientProps = {
   numberLabelMap: NumberLabelMap
@@ -45,41 +47,33 @@ export default function CustomNumberFieldClient(props: CustomNumberFieldClientPr
 
   const value = useMemo(() => toSelectValue(_value), [_value])
 
-  const onChange = useCallback(
-    (selectedOption: OptionObject | OptionObject[]) => {
-      if (!readOnly || disabled) {
-        let newValue: string | string[] | null = null
-        if (selectedOption && hasMany) {
-          if (Array.isArray(selectedOption)) {
-            newValue = selectedOption.map((option) => option.value)
-          } else {
-            newValue = []
-          }
-        } else if (selectedOption && !Array.isArray(selectedOption)) {
-          newValue = selectedOption.value
-        }
+  const onChange = useSelectOnChange({
+    readOnly,
+    disabled,
+    hasMany,
+    onChange: (newValue) => {
+      const newNumberValues = fromSelectValue(newValue)
+      const newNumberValue = Array.isArray(newNumberValues) ? newNumberValues[0] : newNumberValues
 
-        const newNumberValues = fromSelectValue(newValue)
-        const newNumberValue = Array.isArray(newNumberValues) ? newNumberValues[0] : newNumberValues
-
-        if (typeof onChangeFromProps === 'function' && typeof newNumberValue === 'number') {
-          onChangeFromProps(newNumberValue)
-        }
-
-        setValue(newNumberValues)
+      if (typeof onChangeFromProps === 'function' && typeof newNumberValue === 'number') {
+        onChangeFromProps(newNumberValue)
       }
+
+      setValue(newNumberValues)
     },
-    [readOnly, disabled, hasMany, setValue, onChangeFromProps],
-  )
+  })
 
   const styles = useMemo(() => mergeFieldStyles(field), [field])
 
   const options = useMemo(
     () =>
-      range(0, 12).map((_) => ({
-        value: String(_),
-        label: numberLabelMap[_] ?? String(_),
-      })) satisfies OptionObject[],
+      Object.keys(numberLabelMap)
+        .map((_) => parseInt(_, 10))
+        .filter((_) => !Number.isNaN(_))
+        .map((_) => ({
+          value: String(_),
+          label: numberLabelMap[_] ?? String(_),
+        })) satisfies OptionObject[],
     [numberLabelMap],
   )
 
@@ -137,32 +131,6 @@ function parseOrNull(_: string): number | null {
     return null
   }
   return result
-}
-
-function range(from: number, to: number): number[] {
-  const result = []
-  for (let i = from; i < to; i++) {
-    result.push(i)
-  }
-  return result
-}
-
-function mergeFieldStyles(field: ClientField | Omit<ClientField, 'type'>): React.CSSProperties {
-  return {
-    ...(field?.admin?.style || {}),
-    ...(field?.admin?.width
-      ? {
-          '--field-width': field.admin.width,
-        }
-      : {
-          flex: '1 1 auto',
-        }),
-    ...(field?.admin?.style?.flex
-      ? {
-          flex: field.admin.style.flex,
-        }
-      : {}),
-  }
 }
 
 export type Option<TValue = unknown> = {

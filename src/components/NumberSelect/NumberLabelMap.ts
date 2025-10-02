@@ -1,3 +1,3 @@
 export type NumberLabelMap = {
-  [P in number]?: string;
+  [P in number]?: string
 }

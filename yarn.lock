@@ -4579,6 +4579,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vvo/tzdb@npm:^6.185.0":
+  version: 6.185.0
+  resolution: "@vvo/tzdb@npm:6.185.0"
+  checksum: 10c0/1d59638801397c89277f3d18120c967c9f8decb65017fcbbaef9779f4841dcd5e2d72baf0576bb3815717ad9a6e2144520813a3b92acc0a51d499d319e2ac27e
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:^3.0.0":
   version: 3.0.1
   resolution: "abbrev@npm:3.0.1"
@@ -8480,7 +8487,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^15.5.4":
+"next@npm:~15.5.4":
   version: 15.5.4
   resolution: "next@npm:15.5.4"
   dependencies:
@@ -9540,6 +9547,7 @@ __metadata:
     "@types/react": "npm:19.1.8"
     "@types/react-dom": "npm:19.1.6"
     "@vitejs/plugin-react": "npm:4.5.2"
+    "@vvo/tzdb": "npm:^6.185.0"
     cross-env: "npm:^7.0.3"
     dotenv: "npm:16.4.7"
     eslint: "npm:^9.16.0"
@@ -9547,7 +9555,7 @@ __metadata:
     graphql: "npm:^16.11.0"
     jsdom: "npm:26.1.0"
     libphonenumber-js: "npm:^1.12.23"
-    next: "npm:^15.5.4"
+    next: "npm:~15.5.4"
     payload: "npm:3.57.0"
     playwright: "npm:1.54.1"
     playwright-core: "npm:1.54.1"

@@ -41,11 +41,11 @@ export const SupportGroupEvents = {
       admin: {
         components: {
           Cell: {
-            path: '@/components/NumberSelectCell',
+            path: '@/components/NumberSelect/NumberSelectCell',
             clientProps: { numberLabelMap: RussianDayOfTheWeek },
           },
           Field: {
-            path: '@/components/NumberSelectFieldClient',
+            path: '@/components/NumberSelect/NumberSelectFieldClient',
             clientProps: { numberLabelMap: RussianDayOfTheWeek },
           },
         },

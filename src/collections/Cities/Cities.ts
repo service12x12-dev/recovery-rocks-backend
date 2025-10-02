@@ -1,6 +1,10 @@
 import { CollectionConfig } from 'payload'
 import validatePhoneNumber from '@/collections/Cities/validatePhoneNumber'
 import beforeChangePhoneNumber from '@/collections/Cities/beforeChangePhoneNumber'
+import { rawTimeZones } from '@vvo/tzdb'
+import validateTimezone from '@/collections/Cities/validateTimezone'
+
+const stringSelectOptions = rawTimeZones.map((_) => ({ label: _.rawFormat, value: _.name }))
 
 export const Cities = {
   labels: {
@@ -22,6 +26,24 @@ export const Cities = {
       index: true,
       unique: true,
       required: true,
+    },
+    {
+      label: 'Часовой пояс',
+      name: 'timezone',
+      type: 'text',
+      hasMany: false,
+      index: true,
+      required: true,
+      validate: validateTimezone,
+      defaultValue: 'Europe/Moscow',
+      admin: {
+        components: {
+          Field: {
+            path: '@/components/StringSelect/StringSelectFieldClient',
+            clientProps: { stringSelectOptions },
+          },
+        },
+      },
     },
     {
       label: 'Номер телефона',

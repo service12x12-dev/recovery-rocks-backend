@@ -36,11 +36,11 @@ const fields = [
         admin: {
           components: {
             Cell: {
-              path: '@/components/NumberSelectCell',
+              path: '@/components/NumberSelect/NumberSelectCell',
               clientProps: { numberLabelMap: RussianMonth },
             },
             Field: {
-              path: '@/components/NumberSelectFieldClient',
+              path: '@/components/NumberSelect/NumberSelectFieldClient',
               clientProps: { numberLabelMap: RussianMonth },
             },
           },
