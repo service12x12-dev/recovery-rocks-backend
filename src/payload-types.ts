@@ -229,6 +229,7 @@ export interface Card {
  */
 export interface City {
   id: number;
+  idString?: string | null;
   name: string;
   timezone: string;
   phoneNumber: string;
@@ -454,6 +455,7 @@ export interface CardsSelect<T extends boolean = true> {
  * via the `definition` "cities_select".
  */
 export interface CitiesSelect<T extends boolean = true> {
+  idString?: T;
   name?: T;
   timezone?: T;
   phoneNumber?: T;

@@ -3,6 +3,7 @@ import validatePhoneNumber from '@/collections/Cities/validatePhoneNumber'
 import beforeChangePhoneNumber from '@/collections/Cities/beforeChangePhoneNumber'
 import { rawTimeZones } from '@vvo/tzdb'
 import validateTimezone from '@/collections/Cities/validateTimezone'
+import afterChange from './afterChange'
 
 const stringSelectOptions = rawTimeZones.map((_) => ({ label: _.rawFormat, value: _.name }))
 
@@ -18,7 +19,21 @@ export const Cities = {
   admin: {
     useAsTitle: 'name',
   },
+  hooks: {
+    afterChange: [afterChange],
+  },
   fields: [
+    {
+      // dirty hack for Payload's bug
+      // see afterChange.ts
+      label: 'Идентификатор в виде строки',
+      name: 'idString',
+      type: 'text',
+      index: true,
+      admin: {
+        disabled: true,
+      },
+    },
     {
       label: 'Название',
       name: 'name',

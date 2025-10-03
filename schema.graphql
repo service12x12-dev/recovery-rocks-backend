@@ -1485,6 +1485,7 @@ type CardsDeleteDocAccess {
 
 type City {
   id: Int!
+  idString: String!
   name: String!
   timezone: String!
   phoneNumber: String!
@@ -1794,6 +1795,7 @@ type Cities {
 }
 
 input City_where {
+  idString: City_idString_operator
   name: City_name_operator
   timezone: City_timezone_operator
   phoneNumber: City_phoneNumber_operator
@@ -1803,6 +1805,16 @@ input City_where {
   id: City_id_operator
   AND: [City_where_and]
   OR: [City_where_or]
+}
+
+input City_idString_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input City_name_operator {
@@ -1878,6 +1890,7 @@ input City_id_operator {
 }
 
 input City_where_and {
+  idString: City_idString_operator
   name: City_name_operator
   timezone: City_timezone_operator
   phoneNumber: City_phoneNumber_operator
@@ -1890,6 +1903,7 @@ input City_where_and {
 }
 
 input City_where_or {
+  idString: City_idString_operator
   name: City_name_operator
   timezone: City_timezone_operator
   phoneNumber: City_phoneNumber_operator
@@ -1914,6 +1928,7 @@ type citiesDocAccess {
 }
 
 type CitiesDocAccessFields {
+  idString: CitiesDocAccessFields_idString
   name: CitiesDocAccessFields_name
   timezone: CitiesDocAccessFields_timezone
   phoneNumber: CitiesDocAccessFields_phoneNumber
@@ -1921,6 +1936,29 @@ type CitiesDocAccessFields {
   supportGroups: CitiesDocAccessFields_supportGroups
   updatedAt: CitiesDocAccessFields_updatedAt
   createdAt: CitiesDocAccessFields_createdAt
+}
+
+type CitiesDocAccessFields_idString {
+  create: CitiesDocAccessFields_idString_Create
+  read: CitiesDocAccessFields_idString_Read
+  update: CitiesDocAccessFields_idString_Update
+  delete: CitiesDocAccessFields_idString_Delete
+}
+
+type CitiesDocAccessFields_idString_Create {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_idString_Read {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_idString_Update {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_idString_Delete {
+  permission: Boolean!
 }
 
 type CitiesDocAccessFields_name {
@@ -4716,6 +4754,7 @@ type citiesAccess {
 }
 
 type CitiesFields {
+  idString: CitiesFields_idString
   name: CitiesFields_name
   timezone: CitiesFields_timezone
   phoneNumber: CitiesFields_phoneNumber
@@ -4723,6 +4762,29 @@ type CitiesFields {
   supportGroups: CitiesFields_supportGroups
   updatedAt: CitiesFields_updatedAt
   createdAt: CitiesFields_createdAt
+}
+
+type CitiesFields_idString {
+  create: CitiesFields_idString_Create
+  read: CitiesFields_idString_Read
+  update: CitiesFields_idString_Update
+  delete: CitiesFields_idString_Delete
+}
+
+type CitiesFields_idString_Create {
+  permission: Boolean!
+}
+
+type CitiesFields_idString_Read {
+  permission: Boolean!
+}
+
+type CitiesFields_idString_Update {
+  permission: Boolean!
+}
+
+type CitiesFields_idString_Delete {
+  permission: Boolean!
 }
 
 type CitiesFields_name {
@@ -6324,6 +6386,7 @@ input mutationCardUpdateInput {
 }
 
 input mutationCityInput {
+  idString: String!
   name: String!
   timezone: String!
   phoneNumber: String!
@@ -6333,6 +6396,7 @@ input mutationCityInput {
 }
 
 input mutationCityUpdateInput {
+  idString: String
   name: String
   timezone: String
   phoneNumber: String
