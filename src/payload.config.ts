@@ -19,7 +19,7 @@ import { Cities } from '@/collections/Cities/Cities'
 import { migrations } from './migrations'
 import { SupportGroups } from '@/collections/SupportGroups'
 import { SupportGroupEvents } from '@/collections/SupportGroupEvents/SupportGroupEvents'
-import { Locations } from '@/collections/Locations'
+import { Locations } from '@/collections/Locations/Locations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

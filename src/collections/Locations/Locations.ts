@@ -1,4 +1,6 @@
-import { CollectionConfig } from 'payload'
+import { CollectionConfig, TextFieldSingleValidation } from 'payload'
+import { text } from 'payload/shared'
+import beforeChangeTitle from './beforeChangeTitle'
 
 export const Locations = {
   labels: {
@@ -17,7 +19,32 @@ export const Locations = {
       fields: ['city', 'street', 'house'],
     },
   ],
+  admin: {
+    description: 'Заголовок будет автоматически заполнен адресом места, если оставить его пустым',
+    defaultColumns: ['city', 'street', 'house', 'apartmentOrOffice'],
+    useAsTitle: 'title',
+  },
   fields: [
+    {
+      label: 'Заголовок',
+      name: 'title',
+      type: 'text',
+      required: true,
+
+      hooks: {
+        beforeValidate: [
+          (args) => {
+            const { value } = args
+            return value ? value : null
+          },
+        ],
+        beforeChange: [beforeChangeTitle],
+      },
+
+      validate: ((value, options) => {
+        return text(value, { ...options, required: false })
+      }) satisfies TextFieldSingleValidation,
+    },
     {
       label: 'Город',
       name: 'city',

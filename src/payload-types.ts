@@ -261,11 +261,14 @@ export interface SupportGroup {
   createdAt: string;
 }
 /**
+ * Заголовок будет автоматически заполнен адресом места, если оставить его пустым
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "locations".
  */
 export interface Location {
   id: number;
+  title: string;
   city: number | City;
   street: string;
   house: string;
@@ -504,6 +507,7 @@ export interface TimeStructSelect<T extends boolean = true> {
  * via the `definition` "locations_select".
  */
 export interface LocationsSelect<T extends boolean = true> {
+  title?: T;
   city?: T;
   street?: T;
   house?: T;

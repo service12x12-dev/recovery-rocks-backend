@@ -1514,6 +1514,7 @@ type SupportGroup {
 
 type Location {
   id: Int!
+  title: String!
   city: City!
   street: String!
   house: String!
@@ -2657,6 +2658,7 @@ type Locations {
 }
 
 input Location_where {
+  title: Location_title_operator
   city: Location_city_operator
   street: Location_street_operator
   house: Location_house_operator
@@ -2670,6 +2672,16 @@ input Location_where {
   id: Location_id_operator
   AND: [Location_where_and]
   OR: [Location_where_or]
+}
+
+input Location_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input Location_city_operator {
@@ -2788,6 +2800,7 @@ input Location_id_operator {
 }
 
 input Location_where_and {
+  title: Location_title_operator
   city: Location_city_operator
   street: Location_street_operator
   house: Location_house_operator
@@ -2804,6 +2817,7 @@ input Location_where_and {
 }
 
 input Location_where_or {
+  title: Location_title_operator
   city: Location_city_operator
   street: Location_street_operator
   house: Location_house_operator
@@ -2832,6 +2846,7 @@ type locationsDocAccess {
 }
 
 type LocationsDocAccessFields {
+  title: LocationsDocAccessFields_title
   city: LocationsDocAccessFields_city
   street: LocationsDocAccessFields_street
   house: LocationsDocAccessFields_house
@@ -2843,6 +2858,29 @@ type LocationsDocAccessFields {
   supportGroups: LocationsDocAccessFields_supportGroups
   updatedAt: LocationsDocAccessFields_updatedAt
   createdAt: LocationsDocAccessFields_createdAt
+}
+
+type LocationsDocAccessFields_title {
+  create: LocationsDocAccessFields_title_Create
+  read: LocationsDocAccessFields_title_Read
+  update: LocationsDocAccessFields_title_Update
+  delete: LocationsDocAccessFields_title_Delete
+}
+
+type LocationsDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type LocationsDocAccessFields_title_Delete {
+  permission: Boolean!
 }
 
 type LocationsDocAccessFields_city {
@@ -5465,6 +5503,7 @@ type locationsAccess {
 }
 
 type LocationsFields {
+  title: LocationsFields_title
   city: LocationsFields_city
   street: LocationsFields_street
   house: LocationsFields_house
@@ -5476,6 +5515,29 @@ type LocationsFields {
   supportGroups: LocationsFields_supportGroups
   updatedAt: LocationsFields_updatedAt
   createdAt: LocationsFields_createdAt
+}
+
+type LocationsFields_title {
+  create: LocationsFields_title_Create
+  read: LocationsFields_title_Read
+  update: LocationsFields_title_Update
+  delete: LocationsFields_title_Delete
+}
+
+type LocationsFields_title_Create {
+  permission: Boolean!
+}
+
+type LocationsFields_title_Read {
+  permission: Boolean!
+}
+
+type LocationsFields_title_Update {
+  permission: Boolean!
+}
+
+type LocationsFields_title_Delete {
+  permission: Boolean!
 }
 
 type LocationsFields_city {
@@ -6516,6 +6578,7 @@ input mutationSupportGroupEventUpdate_StartInput {
 }
 
 input mutationLocationInput {
+  title: String!
   city: Int
   street: String!
   house: String!
@@ -6529,6 +6592,7 @@ input mutationLocationInput {
 }
 
 input mutationLocationUpdateInput {
+  title: String
   city: Int
   street: String
   house: String
