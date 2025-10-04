@@ -1485,7 +1485,7 @@ type CardsDeleteDocAccess {
 
 type City {
   id: Int!
-  idString: String!
+  idString: String
   name: String!
   timezone: String!
   phoneNumber: String!
@@ -1656,6 +1656,7 @@ type SupportGroupEvent {
   day: Float!
   start: TimeStruct
   duration: Float!
+  sequence: Float!
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -1671,6 +1672,7 @@ input SupportGroupEvent_where {
   start__hour: SupportGroupEvent_start__hour_operator
   start__minute: SupportGroupEvent_start__minute_operator
   duration: SupportGroupEvent_duration_operator
+  sequence: SupportGroupEvent_sequence_operator
   updatedAt: SupportGroupEvent_updatedAt_operator
   createdAt: SupportGroupEvent_createdAt_operator
   id: SupportGroupEvent_id_operator
@@ -1722,6 +1724,15 @@ input SupportGroupEvent_duration_operator {
   less_than: Float
 }
 
+input SupportGroupEvent_sequence_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
 input SupportGroupEvent_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -1760,6 +1771,7 @@ input SupportGroupEvent_where_and {
   start__hour: SupportGroupEvent_start__hour_operator
   start__minute: SupportGroupEvent_start__minute_operator
   duration: SupportGroupEvent_duration_operator
+  sequence: SupportGroupEvent_sequence_operator
   updatedAt: SupportGroupEvent_updatedAt_operator
   createdAt: SupportGroupEvent_createdAt_operator
   id: SupportGroupEvent_id_operator
@@ -1773,6 +1785,7 @@ input SupportGroupEvent_where_or {
   start__hour: SupportGroupEvent_start__hour_operator
   start__minute: SupportGroupEvent_start__minute_operator
   duration: SupportGroupEvent_duration_operator
+  sequence: SupportGroupEvent_sequence_operator
   updatedAt: SupportGroupEvent_updatedAt_operator
   createdAt: SupportGroupEvent_createdAt_operator
   id: SupportGroupEvent_id_operator
@@ -1815,6 +1828,7 @@ input City_idString_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input City_name_operator {
@@ -2390,6 +2404,7 @@ type SupportGroupEventsDocAccessFields {
   day: SupportGroupEventsDocAccessFields_day
   start: SupportGroupEventsDocAccessFields_start
   duration: SupportGroupEventsDocAccessFields_duration
+  sequence: SupportGroupEventsDocAccessFields_sequence
   updatedAt: SupportGroupEventsDocAccessFields_updatedAt
   createdAt: SupportGroupEventsDocAccessFields_createdAt
 }
@@ -2535,6 +2550,29 @@ type SupportGroupEventsDocAccessFields_duration_Update {
 }
 
 type SupportGroupEventsDocAccessFields_duration_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_sequence {
+  create: SupportGroupEventsDocAccessFields_sequence_Create
+  read: SupportGroupEventsDocAccessFields_sequence_Read
+  update: SupportGroupEventsDocAccessFields_sequence_Update
+  delete: SupportGroupEventsDocAccessFields_sequence_Delete
+}
+
+type SupportGroupEventsDocAccessFields_sequence_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_sequence_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_sequence_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsDocAccessFields_sequence_Delete {
   permission: Boolean!
 }
 
@@ -5180,6 +5218,7 @@ type SupportGroupEventsFields {
   day: SupportGroupEventsFields_day
   start: SupportGroupEventsFields_start
   duration: SupportGroupEventsFields_duration
+  sequence: SupportGroupEventsFields_sequence
   updatedAt: SupportGroupEventsFields_updatedAt
   createdAt: SupportGroupEventsFields_createdAt
 }
@@ -5325,6 +5364,29 @@ type SupportGroupEventsFields_duration_Update {
 }
 
 type SupportGroupEventsFields_duration_Delete {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_sequence {
+  create: SupportGroupEventsFields_sequence_Create
+  read: SupportGroupEventsFields_sequence_Read
+  update: SupportGroupEventsFields_sequence_Update
+  delete: SupportGroupEventsFields_sequence_Delete
+}
+
+type SupportGroupEventsFields_sequence_Create {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_sequence_Read {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_sequence_Update {
+  permission: Boolean!
+}
+
+type SupportGroupEventsFields_sequence_Delete {
   permission: Boolean!
 }
 
@@ -6386,7 +6448,7 @@ input mutationCardUpdateInput {
 }
 
 input mutationCityInput {
-  idString: String!
+  idString: String
   name: String!
   timezone: String!
   phoneNumber: String!
@@ -6428,6 +6490,7 @@ input mutationSupportGroupEventInput {
   day: Float!
   start: mutationSupportGroupEvent_StartInput
   duration: Float!
+  sequence: Float!
   updatedAt: String
   createdAt: String
 }
@@ -6442,6 +6505,7 @@ input mutationSupportGroupEventUpdateInput {
   day: Float
   start: mutationSupportGroupEventUpdate_StartInput
   duration: Float
+  sequence: Float
   updatedAt: String
   createdAt: String
 }

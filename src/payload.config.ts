@@ -18,7 +18,7 @@ import { Cards } from '@/collections/Cards'
 import { Cities } from '@/collections/Cities/Cities'
 import { migrations } from './migrations'
 import { SupportGroups } from '@/collections/SupportGroups'
-import { SupportGroupEvents } from '@/collections/SupportGroupEvents'
+import { SupportGroupEvents } from '@/collections/SupportGroupEvents/SupportGroupEvents'
 import { Locations } from '@/collections/Locations'
 
 const filename = fileURLToPath(import.meta.url)

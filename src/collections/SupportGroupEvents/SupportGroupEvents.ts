@@ -1,5 +1,6 @@
 import { CollectionConfig } from 'payload'
 import { RussianDayOfTheWeek } from '@/i18n/RussianDayOfTheWeek'
+import beforeChange from './beforeChange'
 
 export const SupportGroupEvents = {
   labels: {
@@ -10,15 +11,15 @@ export const SupportGroupEvents = {
   access: {
     read: () => true,
   },
-  admin: {
-    hidden: true,
-  },
   indexes: [
     {
       fields: ['supportGroup', 'day', 'start.hour', 'start.minute'],
       unique: true,
     },
   ],
+  hooks: {
+    beforeChange: [beforeChange],
+  },
   fields: [
     {
       label: 'Группа поддержки',
@@ -99,6 +100,18 @@ export const SupportGroupEvents = {
       admin: {
         step: 1,
         placeholder: '30',
+      },
+    },
+    {
+      label: 'Версия события (SEQUENCE в iCal)',
+      name: 'sequence',
+      type: 'number',
+      defaultValue: 0,
+      required: true,
+      min: 0,
+      admin: {
+        step: 1,
+        disabled: true,
       },
     },
   ],

@@ -292,6 +292,7 @@ export interface SupportGroupEvent {
   day: number;
   start: TimeStruct;
   duration: number;
+  sequence: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -486,6 +487,7 @@ export interface SupportGroupEventsSelect<T extends boolean = true> {
   day?: T;
   start?: T | TimeStructSelect<T>;
   duration?: T;
+  sequence?: T;
   updatedAt?: T;
   createdAt?: T;
 }
