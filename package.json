@@ -1,8 +1,6 @@
 {
-  "name": "recovery-rocks",
+  "name": "twelve-x-twelve.press",
   "version": "1.0.0",
-  "description": "A blank template to get started with Payload 3.0",
-  "license": "MIT",
   "type": "module",
   "scripts": {
     "docker-build-tar": "cross-env DOCKER_BUILDKIT=1 docker build -t recovery-rocks-backend:latest . && docker save -o tars/recovery-rocks-backend.tar recovery-rocks-backend:latest",

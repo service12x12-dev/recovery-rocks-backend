@@ -9,7 +9,8 @@ export default async function HomePage() {
   return (
     <div className="home">
       <div className="content">
-        <h1>RecoveryRocks</h1>
+        <h1>admin.12x12.press</h1>
+        <p>База данных проекта 12x12.press</p>
         <div className="links">
           <a className="admin" href={process.env.APP_URL} rel="noopener noreferrer" target="_blank">
             Приложение
