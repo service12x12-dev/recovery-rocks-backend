@@ -1,49 +1,53 @@
 type Query {
-  User(id: Int!, draft: Boolean, trash: Boolean): User
-  Users(draft: Boolean, where: User_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Users
+  User(id: Int!, draft: Boolean, select: Boolean, trash: Boolean): User
+  Users(draft: Boolean, where: User_where, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Users
   countUsers(draft: Boolean, trash: Boolean, where: User_where): countUsers
   docAccessUser(id: Int!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
-  Topic(id: Int!, draft: Boolean, trash: Boolean): Topic
-  Topics(draft: Boolean, where: Topic_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Topics
+  Topic(id: Int!, draft: Boolean, select: Boolean, trash: Boolean): Topic
+  Topics(draft: Boolean, where: Topic_where, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Topics
   countTopics(draft: Boolean, trash: Boolean, where: Topic_where): countTopics
   docAccessTopic(id: Int!): topicsDocAccess
-  Quote(id: Int!, draft: Boolean, trash: Boolean): Quote
-  Quotes(draft: Boolean, where: Quote_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Quotes
+  Quote(id: Int!, draft: Boolean, select: Boolean, trash: Boolean): Quote
+  Quotes(draft: Boolean, where: Quote_where, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Quotes
   countQuotes(draft: Boolean, trash: Boolean, where: Quote_where): countQuotes
   docAccessQuote(id: Int!): quotesDocAccess
-  Card(id: Int!, draft: Boolean, trash: Boolean): Card
-  Cards(draft: Boolean, where: Card_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Cards
+  Card(id: Int!, draft: Boolean, select: Boolean, trash: Boolean): Card
+  Cards(draft: Boolean, where: Card_where, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Cards
   countCards(draft: Boolean, trash: Boolean, where: Card_where): countCards
   docAccessCard(id: Int!): cardsDocAccess
-  City(id: Int!, draft: Boolean, trash: Boolean): City
-  Cities(draft: Boolean, where: City_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Cities
+  City(id: Int!, draft: Boolean, select: Boolean, trash: Boolean): City
+  Cities(draft: Boolean, where: City_where, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Cities
   countCities(draft: Boolean, trash: Boolean, where: City_where): countCities
   docAccessCity(id: Int!): citiesDocAccess
-  SupportGroup(id: Int!, draft: Boolean, trash: Boolean): SupportGroup
-  SupportGroups(draft: Boolean, where: SupportGroup_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): SupportGroups
+  SupportGroup(id: Int!, draft: Boolean, select: Boolean, trash: Boolean): SupportGroup
+  SupportGroups(draft: Boolean, where: SupportGroup_where, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): SupportGroups
   countSupportGroups(draft: Boolean, trash: Boolean, where: SupportGroup_where): countSupportGroups
   docAccessSupportGroup(id: Int!): supportGroupsDocAccess
-  SupportGroupEvent(id: Int!, draft: Boolean, trash: Boolean): SupportGroupEvent
-  SupportGroupEvents(draft: Boolean, where: SupportGroupEvent_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): SupportGroupEvents
+  SupportGroupEvent(id: Int!, draft: Boolean, select: Boolean, trash: Boolean): SupportGroupEvent
+  SupportGroupEvents(draft: Boolean, where: SupportGroupEvent_where, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): SupportGroupEvents
   countSupportGroupEvents(draft: Boolean, trash: Boolean, where: SupportGroupEvent_where): countSupportGroupEvents
   docAccessSupportGroupEvent(id: Int!): supportGroupEventsDocAccess
-  Location(id: Int!, draft: Boolean, trash: Boolean): Location
-  Locations(draft: Boolean, where: Location_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Locations
+  Location(id: Int!, draft: Boolean, select: Boolean, trash: Boolean): Location
+  Locations(draft: Boolean, where: Location_where, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Locations
   countLocations(draft: Boolean, trash: Boolean, where: Location_where): countLocations
   docAccessLocation(id: Int!): locationsDocAccess
-  PayloadLockedDocument(id: Int!, draft: Boolean, trash: Boolean): PayloadLockedDocument
-  PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadLockedDocuments
+  PayloadKv(id: Int!, draft: Boolean, select: Boolean, trash: Boolean): PayloadKv
+  PayloadKvs(draft: Boolean, where: PayloadKv_where, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): PayloadKvs
+  countPayloadKvs(draft: Boolean, trash: Boolean, where: PayloadKv_where): countPayloadKvs
+  docAccessPayloadKv(id: Int!): payload_kvDocAccess
+  PayloadLockedDocument(id: Int!, draft: Boolean, select: Boolean, trash: Boolean): PayloadLockedDocument
+  PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): PayloadLockedDocuments
   countPayloadLockedDocuments(draft: Boolean, trash: Boolean, where: PayloadLockedDocument_where): countPayloadLockedDocuments
   docAccessPayloadLockedDocument(id: Int!): payload_locked_documentsDocAccess
-  PayloadPreference(id: Int!, draft: Boolean, trash: Boolean): PayloadPreference
-  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadPreferences
+  PayloadPreference(id: Int!, draft: Boolean, select: Boolean, trash: Boolean): PayloadPreference
+  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): PayloadPreferences
   countPayloadPreferences(draft: Boolean, trash: Boolean, where: PayloadPreference_where): countPayloadPreferences
   docAccessPayloadPreference(id: Int!): payload_preferencesDocAccess
-  FallbackPublication(draft: Boolean): FallbackPublication
+  FallbackPublication(draft: Boolean, select: Boolean): FallbackPublication
   docAccessFallbackPublication: fallbackPublicationsDocAccess
-  CardSet(draft: Boolean): CardSet
+  CardSet(draft: Boolean, select: Boolean): CardSet
   docAccessCardSet: cardSetDocAccess
   Access: Access
 }
@@ -3156,6 +3160,162 @@ type LocationsDeleteDocAccess {
   where: JSONObject
 }
 
+type PayloadKv {
+  id: Int!
+  key: String!
+  data: JSON!
+}
+
+type PayloadKvs {
+  docs: [PayloadKv!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+input PayloadKv_where {
+  key: PayloadKv_key_operator
+  data: PayloadKv_data_operator
+  id: PayloadKv_id_operator
+  AND: [PayloadKv_where_and]
+  OR: [PayloadKv_where_or]
+}
+
+input PayloadKv_key_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input PayloadKv_data_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  within: JSON
+  intersects: JSON
+}
+
+input PayloadKv_id_operator {
+  equals: Int
+  not_equals: Int
+  greater_than_equal: Int
+  greater_than: Int
+  less_than_equal: Int
+  less_than: Int
+  exists: Boolean
+}
+
+input PayloadKv_where_and {
+  key: PayloadKv_key_operator
+  data: PayloadKv_data_operator
+  id: PayloadKv_id_operator
+  AND: [PayloadKv_where_and]
+  OR: [PayloadKv_where_or]
+}
+
+input PayloadKv_where_or {
+  key: PayloadKv_key_operator
+  data: PayloadKv_data_operator
+  id: PayloadKv_id_operator
+  AND: [PayloadKv_where_and]
+  OR: [PayloadKv_where_or]
+}
+
+type countPayloadKvs {
+  totalDocs: Int
+}
+
+type payload_kvDocAccess {
+  fields: PayloadKvDocAccessFields
+  create: PayloadKvCreateDocAccess
+  read: PayloadKvReadDocAccess
+  update: PayloadKvUpdateDocAccess
+  delete: PayloadKvDeleteDocAccess
+}
+
+type PayloadKvDocAccessFields {
+  key: PayloadKvDocAccessFields_key
+  data: PayloadKvDocAccessFields_data
+}
+
+type PayloadKvDocAccessFields_key {
+  create: PayloadKvDocAccessFields_key_Create
+  read: PayloadKvDocAccessFields_key_Read
+  update: PayloadKvDocAccessFields_key_Update
+  delete: PayloadKvDocAccessFields_key_Delete
+}
+
+type PayloadKvDocAccessFields_key_Create {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_key_Read {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_key_Update {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_key_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_data {
+  create: PayloadKvDocAccessFields_data_Create
+  read: PayloadKvDocAccessFields_data_Read
+  update: PayloadKvDocAccessFields_data_Update
+  delete: PayloadKvDocAccessFields_data_Delete
+}
+
+type PayloadKvDocAccessFields_data_Create {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_data_Read {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_data_Update {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_data_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type PayloadLockedDocument {
   id: Int!
   document: PayloadLockedDocument_Document_Relationship
@@ -3977,6 +4137,7 @@ type Access {
   supportGroups: supportGroupsAccess
   supportGroupEvents: supportGroupEventsAccess
   locations: locationsAccess
+  payload_kv: payload_kvAccess
   payload_locked_documents: payload_locked_documentsAccess
   payload_preferences: payload_preferencesAccess
   fallbackPublications: fallbackPublicationsAccess
@@ -5813,6 +5974,85 @@ type LocationsDeleteAccess {
   where: JSONObject
 }
 
+type payload_kvAccess {
+  fields: PayloadKvFields
+  create: PayloadKvCreateAccess
+  read: PayloadKvReadAccess
+  update: PayloadKvUpdateAccess
+  delete: PayloadKvDeleteAccess
+}
+
+type PayloadKvFields {
+  key: PayloadKvFields_key
+  data: PayloadKvFields_data
+}
+
+type PayloadKvFields_key {
+  create: PayloadKvFields_key_Create
+  read: PayloadKvFields_key_Read
+  update: PayloadKvFields_key_Update
+  delete: PayloadKvFields_key_Delete
+}
+
+type PayloadKvFields_key_Create {
+  permission: Boolean!
+}
+
+type PayloadKvFields_key_Read {
+  permission: Boolean!
+}
+
+type PayloadKvFields_key_Update {
+  permission: Boolean!
+}
+
+type PayloadKvFields_key_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvFields_data {
+  create: PayloadKvFields_data_Create
+  read: PayloadKvFields_data_Read
+  update: PayloadKvFields_data_Update
+  delete: PayloadKvFields_data_Delete
+}
+
+type PayloadKvFields_data_Create {
+  permission: Boolean!
+}
+
+type PayloadKvFields_data_Read {
+  permission: Boolean!
+}
+
+type PayloadKvFields_data_Update {
+  permission: Boolean!
+}
+
+type PayloadKvFields_data_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type payload_locked_documentsAccess {
   fields: PayloadLockedDocumentsFields
   create: PayloadLockedDocumentsCreateAccess
@@ -6360,6 +6600,10 @@ type Mutation {
   updateLocation(id: Int!, autosave: Boolean, data: mutationLocationUpdateInput!, draft: Boolean, trash: Boolean): Location
   deleteLocation(id: Int!, trash: Boolean): Location
   duplicateLocation(id: Int!, data: mutationLocationInput!): Location
+  createPayloadKv(data: mutationPayloadKvInput!, draft: Boolean): PayloadKv
+  updatePayloadKv(id: Int!, autosave: Boolean, data: mutationPayloadKvUpdateInput!, draft: Boolean, trash: Boolean): PayloadKv
+  deletePayloadKv(id: Int!, trash: Boolean): PayloadKv
+  duplicatePayloadKv(id: Int!, data: mutationPayloadKvInput!): PayloadKv
   createPayloadLockedDocument(data: mutationPayloadLockedDocumentInput!, draft: Boolean): PayloadLockedDocument
   updatePayloadLockedDocument(id: Int!, autosave: Boolean, data: mutationPayloadLockedDocumentUpdateInput!, draft: Boolean, trash: Boolean): PayloadLockedDocument
   deletePayloadLockedDocument(id: Int!, trash: Boolean): PayloadLockedDocument
@@ -6603,6 +6847,16 @@ input mutationLocationUpdateInput {
   comment: String
   updatedAt: String
   createdAt: String
+}
+
+input mutationPayloadKvInput {
+  key: String!
+  data: JSON!
+}
+
+input mutationPayloadKvUpdateInput {
+  key: String
+  data: JSON
 }
 
 input mutationPayloadLockedDocumentInput {
